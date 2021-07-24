@@ -1,13 +1,11 @@
-using Kaigo.Runtime.Camera;
-using Kaigo.Runtime.Camera.Selection;
 using Kaigo.Runtime.Character.Animation;
 using Kaigo.Runtime.Character.Attribute;
 using Kaigo.Runtime.Character.Input;
-using Kaigo.Runtime.Character.Movement.Locomotion;
 using Kaigo.Runtime.Character.Setting;
 using UnityEngine;
+using Z.CharacterLocomotion.Runtime;
 using Z.SmoothUpdate.Runtime;
-using Z.UnityHelper;
+using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Character
 {
@@ -74,9 +72,9 @@ namespace Kaigo.Runtime.Character
 			_locoHandler.Init (new LocomotionHandlerInitialPayload
 			{
 				CamTransform = _camTransform,
-				Input = _inputHandler,
+				InputAxis = _inputHandler,
 				LocoSetting = _charSetting,
-				StatAttribute = _statAttribute,
+				Stat = _statAttribute,
 				UCharController = _ucharController
 			});
 			_animHandler.Init (_anim, _locoHandler, _statAttribute);

@@ -3,18 +3,19 @@ using UnityEngine;
 
 namespace Kaigo.Runtime.Camera.Input
 {
+	using Z.UnityHelper.Input;
 	using static UnityEngine.InputSystem.InputAction;
 
 	[DisallowMultipleComponent]
-	internal partial class ThirdPersonInputHandler : MonoBehaviour, IInput
+	internal partial class ThirdPersonInputHandler : MonoBehaviour, IInputAxis
 	{
 		private CameraThirdPersonInput _cameraThirdPersonInput = null;
 
 		private bool _isActive = false;
 		private bool _isInitialized = false;
 
-		public float LookH { get; private set; } = 0f;
-		public float LookV { get; private set; } = 0f;
+		public float Horizontal { get; private set; } = 0f;
+		public float Vertical { get; private set; } = 0f;
 
 		internal void Init ()
 		{
@@ -65,8 +66,8 @@ namespace Kaigo.Runtime.Camera.Input
 		private void LookPerformed (CallbackContext context)
 		{
 			Vector2 lookInput = context.ReadValue<Vector2> ();
-			LookH = lookInput.x;
-			LookV = lookInput.y;
+			Horizontal = lookInput.x;
+			Vertical = lookInput.y;
 		}
 	}
 }

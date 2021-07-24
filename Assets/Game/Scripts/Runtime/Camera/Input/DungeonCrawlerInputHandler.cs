@@ -3,10 +3,11 @@ using UnityEngine;
 
 namespace Kaigo.Runtime.Camera.Input
 {
+	using Z.UnityHelper.Input;
 	using static UnityEngine.InputSystem.InputAction;
 
 	[DisallowMultipleComponent]
-	internal class DungeonCrawlerInputHandler : MonoBehaviour, IInput
+	internal class DungeonCrawlerInputHandler : MonoBehaviour, IInputAxis
 	{
 		private CameraDungeonCrawlerInput _cameraDungeonCrawlerInput = null;
 
@@ -14,8 +15,8 @@ namespace Kaigo.Runtime.Camera.Input
 		private bool _isInitialized = false;
 		private bool _isAltRotationEnabled = false;
 
-		public float LookH { get; private set; } = 0f;
-		public float LookV { get; private set; } = 0f;
+		public float Horizontal { get; private set; } = 0f;
+		public float Vertical { get; private set; } = 0f;
 
 		internal void Init ()
 		{
@@ -67,19 +68,19 @@ namespace Kaigo.Runtime.Camera.Input
 		private void RotationPerformed (CallbackContext context)
 		{
 			Vector2 lookInput = context.ReadValue<Vector2> ();
-			LookH = lookInput.x;
+			Horizontal = lookInput.x;
 		}
 
 		private void AltRotationPerformed (CallbackContext context)
 		{
 			if (!_isAltRotationEnabled)
 			{
-				LookH = 0f;
+				Horizontal = 0f;
 				return;
 			}
 
 			Vector2 lookInput = context.ReadValue<Vector2> ();
-			LookH = lookInput.x;
+			Horizontal = lookInput.x;
 		}
 
 		private void EnableAltRotationStarted (CallbackContext context)

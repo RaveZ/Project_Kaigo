@@ -1,8 +1,9 @@
 using UnityEngine;
+using Z.UnityHelper.Input;
 
 namespace Kaigo.Runtime.Character.Input
 {
-	internal abstract class BaseInputHanlder : MonoBehaviour, IInput
+	internal abstract class BaseInputHanlder : MonoBehaviour, IInputAxis
 	{
 		internal delegate void AttackAction ();
 		internal delegate void JumpAction ();
@@ -12,8 +13,8 @@ namespace Kaigo.Runtime.Character.Input
 
 		public bool IsInitialized { get; protected set; }
 		public bool IsSprinting { get; protected set; }
-		public float MoveH { get; protected set; }
-		public float MoveV { get; protected set; }
+		public float Horizontal { get; protected set; }
+		public float Vertical { get; protected set; }
 
 		protected void InvokeAttackAction ()
 		{

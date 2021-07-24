@@ -46,8 +46,8 @@ namespace Kaigo.Runtime.Character.Input
 		private void MovementPerformed (CallbackContext context)
 		{
 			Vector2 moveInput = context.ReadValue<Vector2> ();
-			MoveH = moveInput.x;
-			MoveV = moveInput.y;
+			Horizontal = moveInput.x;
+			Vertical = moveInput.y;
 		}
 
 		private void SprintStarted (CallbackContext context)

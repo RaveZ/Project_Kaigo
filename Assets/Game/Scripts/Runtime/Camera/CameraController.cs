@@ -4,7 +4,7 @@ using Kaigo.Runtime.Camera.Selection;
 using Kaigo.Runtime.Camera.Setting;
 using UnityEngine;
 using Z.Timer.Runtime;
-using Z.UnityHelper;
+using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Camera
 {
@@ -45,8 +45,8 @@ namespace Kaigo.Runtime.Camera
 				CamTargetTransform = camTargetTransform,
 				CamTransform = _mainCam.transform,
 				PitchTransform = _pitchTransform,
-				DCInput = _inputHandler.DCInput,
-				TPInput = _inputHandler.TPInput,
+				DCInputAxis = _inputHandler.DCInputAxis,
+				TPInputAxis = _inputHandler.TPInputAxis,
 				DCMoveSetting = _camSetting.DungeonCrawler,
 				TPMoveSetting = _camSetting.ThirdPerson,
 				DCTransitionSetting = _camSetting,

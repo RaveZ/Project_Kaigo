@@ -1,5 +1,5 @@
 using UnityEngine;
-using Z.UnityHelper;
+using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Character
 {

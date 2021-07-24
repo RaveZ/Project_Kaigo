@@ -1,6 +1,6 @@
 using Kaigo.Runtime.Character.Attribute;
-using Kaigo.Runtime.Character.Movement.Locomotion;
 using UnityEngine;
+using Z.CharacterLocomotion.Runtime;
 
 namespace Kaigo.Runtime.Character.Animation
 {

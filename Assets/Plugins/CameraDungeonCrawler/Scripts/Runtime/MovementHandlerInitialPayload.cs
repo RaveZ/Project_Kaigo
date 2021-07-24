@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
 using Z.Timer.Runtime;
-using Z.UnityHelper;
+using Z.UnityHelper.Input;
+using Z.UnityHelper.TransformUtil;
 
 namespace Z.CameraDungeonCrawler.Runtime
 {
@@ -10,7 +11,7 @@ namespace Z.CameraDungeonCrawler.Runtime
 		public Transform CamTransform { get; set; }
 		public Transform PitchTransform { get; set; }
 		public ITransform CamTargetTransform { get; set; }
-		public IInput Input { get; set; }
+		public IInputAxis InputAxis { get; set; }
 		public IMovementSetting MoveSetting { get; set; }
 		public ITransitionSetting TransitionSetting { get; set; }
 		public ITimer Timer { get; set; }
@@ -33,7 +34,7 @@ namespace Z.CameraDungeonCrawler.Runtime
 				CamTransform = null;
 				PitchTransform = null;
 				CamTargetTransform = null;
-				Input = null;
+				InputAxis = null;
 				MoveSetting = null;
 				TransitionSetting = null;
 				Timer = null;

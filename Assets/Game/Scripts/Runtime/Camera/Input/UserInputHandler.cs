@@ -1,5 +1,6 @@
 using Kaigo.Runtime.Camera.Selection;
 using UnityEngine;
+using Z.UnityHelper.Input;
 
 namespace Kaigo.Runtime.Camera.Input
 {
@@ -18,8 +19,8 @@ namespace Kaigo.Runtime.Camera.Input
 		private bool _isTogglableRotateActive = false;
 		private ICameraSelection _camSelection = null;
 
-		internal IInput DCInput => _dcInputHandler;
-		internal IInput TPInput => _tpInputHandler;
+		internal IInputAxis DCInputAxis => _dcInputHandler;
+		internal IInputAxis TPInputAxis => _tpInputHandler;
 
 		internal void Init (ICameraSelection camSelection)
 		{

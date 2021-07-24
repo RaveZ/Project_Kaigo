@@ -2,25 +2,24 @@ using Kaigo.Runtime.Camera.Selection;
 using System;
 using UnityEngine;
 using Z.Timer.Runtime;
-using Z.UnityHelper;
+using Z.UnityHelper.Input;
+using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Camera.Movement
 {
-	using IDCInput = Z.CameraDungeonCrawler.Runtime.IInput;
-	using ITPInput = Z.CameraThirdPerson.Runtime.IInput;
-	using IDCTransitionSetting = Z.CameraDungeonCrawler.Runtime.ITransitionSetting;
-	using ITPTransitionSetting = Z.CameraThirdPerson.Runtime.ITransitionSetting;
 	using IDCMovementSetting = Z.CameraDungeonCrawler.Runtime.IMovementSetting;
+	using IDCTransitionSetting = Z.CameraDungeonCrawler.Runtime.ITransitionSetting;
 	using ITPMovementSetting = Z.CameraThirdPerson.Runtime.IMovementSetting;
+	using ITPTransitionSetting = Z.CameraThirdPerson.Runtime.ITransitionSetting;
 
 	internal class MovementHandlerInitialPayload : IMovementHandlerInitialPayload
 	{
-		public ICameraSelection CamSelection { get; set;  }
-		public Transform CamTransform { get; set;  }
+		public ICameraSelection CamSelection { get; set; }
+		public Transform CamTransform { get; set; }
 		public Transform PitchTransform { get; set; }
 		public ITransform CamTargetTransform { get; set; }
-		public IDCInput DCInput { get; set; }
-		public ITPInput TPInput { get; set; }
+		public IInputAxis DCInputAxis { get; set; }
+		public IInputAxis TPInputAxis { get; set; }
 		public IDCMovementSetting DCMoveSetting { get; set; }
 		public ITPMovementSetting TPMoveSetting { get; set; }
 		public IDCTransitionSetting DCTransitionSetting { get; set; }
@@ -46,8 +45,8 @@ namespace Kaigo.Runtime.Camera.Movement
 				CamTransform = null;
 				PitchTransform = null;
 				CamTargetTransform = null;
-				DCInput = null;
-				TPInput = null;
+				DCInputAxis = null;
+				TPInputAxis = null;
 				DCMoveSetting = null;
 				TPMoveSetting = null;
 				DCTransitionSetting = null;

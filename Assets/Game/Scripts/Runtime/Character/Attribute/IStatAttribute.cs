@@ -1,7 +1,6 @@
+using Z.CharacterLocomotion.Runtime;
+
 namespace Kaigo.Runtime.Character.Attribute
 {
-	internal interface IStatAttribute
-	{
-		float MoveSpeed { get; }
-	}
+	internal interface IStatAttribute : ILocomotionStat { }
 }

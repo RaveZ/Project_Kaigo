@@ -1,10 +1,10 @@
 using Kaigo.Runtime.Character.Animation;
 using Kaigo.Runtime.Character.Attribute;
-using Kaigo.Runtime.Character.Movement.Locomotion;
 using Kaigo.Runtime.Character.Setting;
 using UnityEngine;
+using Z.CharacterLocomotion.Runtime;
 using Z.SmoothUpdate.Runtime;
-using Z.UnityHelper;
+using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Character
 {
