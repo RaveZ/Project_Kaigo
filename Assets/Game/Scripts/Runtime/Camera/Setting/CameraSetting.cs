@@ -1,0 +1,31 @@
+using UnityEngine;
+using Z.Ease;
+
+namespace Kaigo.Runtime.Camera.Setting
+{
+	using IDCTransitionSetting = Z.CameraDungeonCrawler.Runtime.ITransitionSetting;
+	using ITPTransitionSetting = Z.CameraThirdPerson.Runtime.ITransitionSetting;
+
+	[CreateAssetMenu (fileName = "CameraSetting", menuName = "Kaigo/Camera/Camera Setting")]
+	internal partial class CameraSetting : ScriptableObject, IDCTransitionSetting, ITPTransitionSetting
+	{
+		[field: Header ("Transition")]
+		[field: SerializeField]
+		[field: Min (0f)]
+		public float TransitionTime { get; private set; } = 0.2f;
+		[field: SerializeField]
+		public EaseType InterpolationType { get; private set; } = EaseType.Linear;
+
+		[field: Header ("Movement")]
+		[field: SerializeField]
+		internal DungeonCrawlerSetting DungeonCrawler { get; private set; } = null;
+		[field: SerializeField]
+		internal ThirdPersonSetting ThirdPerson { get; private set; } = null;
+
+		float IDCTransitionSetting.Time => TransitionTime;
+		EaseType IDCTransitionSetting.InterpolationType => InterpolationType;
+
+		float ITPTransitionSetting.Time => TransitionTime;
+		EaseType ITPTransitionSetting.InterpolationType => InterpolationType;
+	}
+}

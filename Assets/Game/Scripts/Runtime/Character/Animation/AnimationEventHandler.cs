@@ -1,7 +1,9 @@
+using UnityEngine;
 using Z.DeterministicAnimationEvent.Runtime;
 
 namespace Kaigo.Runtime.Character.Animation
 {
+	[DisallowMultipleComponent]
 	internal class AnimationEventHandler : BaseAnimationEventHandler
 	{
 		internal delegate void SetMovabilityAction (bool isEnable);

@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace Kaigo.Runtime.Character.Attribute
 {
+	[DisallowMultipleComponent]
 	internal class StatAttribute : MonoBehaviour, IStatAttribute
 	{
 #if UNITY_EDITOR

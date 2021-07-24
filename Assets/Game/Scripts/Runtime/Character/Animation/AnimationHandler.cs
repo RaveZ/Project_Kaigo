@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Kaigo.Runtime.Character.Animation
 {
+	[DisallowMultipleComponent]
 	internal class AnimationHandler : MonoBehaviour
 	{
 		private readonly int _paramVelocityXID = Animator.StringToHash ("VelocityX");

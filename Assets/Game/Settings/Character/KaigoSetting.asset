@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6fb69037f7fe154ea6f0b3c9c4d6bb4, type: 3}
+  m_Script: {fileID: 11500000, guid: 7eb403b9e9ceb0643913d6dc5f77b166, type: 3}
   m_Name: KaigoSetting
   m_EditorClassIdentifier: 
-  <MoveSmoothSpeed>k__BackingField: 0.5
-  <TurnSmoothTime>k__BackingField: 0.2
+  <MoveSmoothSpeed>k__BackingField: 0.8
+  <TurnSmoothTime>k__BackingField: 0.1
   <GravityScale>k__BackingField: 1
-  <IsCamRelative>k__BackingField: 0
+  <IsCamRelative>k__BackingField: 1

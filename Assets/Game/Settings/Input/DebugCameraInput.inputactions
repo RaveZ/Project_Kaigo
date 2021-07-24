@@ -1,0 +1,33 @@
+{
+    "name": "DebugCameraInput",
+    "maps": [
+        {
+            "name": "Game",
+            "id": "89684b78-b664-46a2-b0d8-6346b502902e",
+            "actions": [
+                {
+                    "name": "SwitchCamera",
+                    "type": "Button",
+                    "id": "4da73679-7645-45cc-af19-17658b90567c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c0214dea-ff27-4aa8-ba9a-299c18cef2b1",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

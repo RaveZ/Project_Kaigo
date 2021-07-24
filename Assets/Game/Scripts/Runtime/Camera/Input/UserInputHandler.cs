@@ -1,0 +1,63 @@
+using Kaigo.Runtime.Camera.Selection;
+using UnityEngine;
+
+namespace Kaigo.Runtime.Camera.Input
+{
+	using CameraType = Selection.CameraType;
+
+	[DisallowMultipleComponent]
+	[RequireComponent (typeof (DungeonCrawlerInputHandler), typeof (ThirdPersonInputHandler))]
+	internal partial class UserInputHandler : MonoBehaviour
+	{
+		[SerializeField]
+		private ThirdPersonInputHandler _tpInputHandler = null;
+		[SerializeField]
+		private DungeonCrawlerInputHandler _dcInputHandler = null;
+
+		private bool _isInitialized = false;
+		private bool _isTogglableRotateActive = false;
+		private ICameraSelection _camSelection = null;
+
+		internal IInput DCInput => _dcInputHandler;
+		internal IInput TPInput => _tpInputHandler;
+
+		internal void Init (ICameraSelection camSelection)
+		{
+			_isInitialized = true;
+
+			_camSelection = camSelection;
+
+			_tpInputHandler.Init ();
+			_dcInputHandler.Init ();
+
+			DebugInit ();
+		}
+
+		internal void OnSelectCamera (CameraType type)
+		{
+			switch (type)
+			{
+				default:
+				case CameraType.Length:
+				case CameraType.DungeonCrawler:
+					ActivateDungeonCrawlerCamera ();
+					break;
+				case CameraType.ThirdPerson:
+					ActivateThirdPersonCamera ();
+					break;
+			}
+		}
+
+		private void ActivateDungeonCrawlerCamera ()
+		{
+			_tpInputHandler.Deactivate ();
+			_dcInputHandler.Activate ();
+		}
+
+		private void ActivateThirdPersonCamera ()
+		{
+			_dcInputHandler.Deactivate ();
+			_tpInputHandler.Activate ();
+		}
+	}
+}

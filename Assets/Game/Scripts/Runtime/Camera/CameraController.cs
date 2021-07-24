@@ -1,16 +1,88 @@
-using Kaigo.Runtime.Utility;
+using Kaigo.Runtime.Camera.Input;
+using Kaigo.Runtime.Camera.Movement;
+using Kaigo.Runtime.Camera.Selection;
+using Kaigo.Runtime.Camera.Setting;
 using UnityEngine;
+using Z.Timer.Runtime;
+using Z.UnityHelper;
 
 namespace Kaigo.Runtime.Camera
 {
+	using CameraType = Selection.CameraType;
 	using UCamera = UnityEngine.Camera;
 
-	[RequireComponent (typeof (UCamera))]
-	internal partial class CameraController : MonoBehaviour, ICameraTransform
+	[DisallowMultipleComponent]
+	[RequireComponent (typeof (SelectionHandler), typeof (UserInputHandler), typeof (MovementHandler))]
+	[RequireComponent (typeof (TimerHandler))]
+	internal partial class CameraController : MonoBehaviour, ICameraTransform, ITimerLimit
 	{
+		[Header ("References")]
 		[SerializeField]
 		private UCamera _mainCam = null;
 		[SerializeField]
 		private Transform _pitchTransform = null;
+		[SerializeField]
+		private SelectionHandler _selectHandler = null;
+		[SerializeField]
+		private UserInputHandler _inputHandler = null;
+		[SerializeField]
+		private MovementHandler _moveHandler = null;
+		[SerializeField]
+		private CameraSetting _camSetting = null;
+		[SerializeField]
+		private TimerHandler _timerHandler = null;
+
+		private bool _isInitialized = false;
+
+		internal void Init (ITransform camTargetTransform)
+		{
+			DebugInit ();
+
+			_inputHandler.Init (_selectHandler);
+			_moveHandler.Init (new MovementHandlerInitialPayload
+			{
+				CamSelection = _selectHandler,
+				CamTargetTransform = camTargetTransform,
+				CamTransform = _mainCam.transform,
+				PitchTransform = _pitchTransform,
+				DCInput = _inputHandler.DCInput,
+				TPInput = _inputHandler.TPInput,
+				DCMoveSetting = _camSetting.DungeonCrawler,
+				TPMoveSetting = _camSetting.ThirdPerson,
+				DCTransitionSetting = _camSetting,
+				TPTransitionSetting = _camSetting,
+				Timer = _timerHandler
+			});
+			_timerHandler.Init (this);
+
+			_selectHandler.OnSelectCameraTriggered += _inputHandler.OnSelectCamera;
+			_selectHandler.OnSelectCameraTriggered += _moveHandler.OnSelectCamera;
+
+			_selectHandler.SelectCamera (CameraType.ThirdPerson);
+
+			_isInitialized = true;
+		}
+
+		private void OnDestroy ()
+		{
+			_selectHandler.OnSelectCameraTriggered -= _inputHandler.OnSelectCamera;
+			_selectHandler.OnSelectCameraTriggered -= _moveHandler.OnSelectCamera;
+		}
+
+		private void Update ()
+		{
+			if (!_isInitialized)
+				return;
+
+			_timerHandler.OnUpdate ();
+		}
+
+		private void LateUpdate ()
+		{
+			if (!_isInitialized)
+				return;
+
+			_moveHandler.OnLateUpdate ();
+		}
 	}
 }

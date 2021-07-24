@@ -7,6 +7,7 @@ namespace Kaigo.Runtime.Character.Movement.Locomotion
 {
 	using UCharacterController = UnityEngine.CharacterController;
 
+	[DisallowMultipleComponent]
 	internal class LocomotionHandler : MonoBehaviour, ILocomotion
 	{
 		private UCharacterController _ucharController = null;

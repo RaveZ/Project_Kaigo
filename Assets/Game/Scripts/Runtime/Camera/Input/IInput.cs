@@ -1,8 +1,7 @@
 namespace Kaigo.Runtime.Camera.Input
 {
-	internal interface IInput
-	{
-		float LookH { get; }
-		float LookV { get; }
-	}
+	using IDCInput = Z.CameraDungeonCrawler.Runtime.IInput;
+	using ITPInput = Z.CameraThirdPerson.Runtime.IInput;
+
+	internal interface IInput : ITPInput, IDCInput { }
 }

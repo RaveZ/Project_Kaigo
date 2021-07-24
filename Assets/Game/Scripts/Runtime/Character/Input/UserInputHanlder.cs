@@ -5,6 +5,7 @@ namespace Kaigo.Runtime.Character.Input
 {
 	using static UnityEngine.InputSystem.InputAction;
 
+	[DisallowMultipleComponent]
 	internal class UserInputHanlder : BaseInputHanlder
 	{
 		private CharacterInput _charInput;

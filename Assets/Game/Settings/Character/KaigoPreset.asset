@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e5c3500fbbbe7640ab05be3ad0308a2, type: 3}
+  m_Script: {fileID: 11500000, guid: a559994f0045137469b415ca87d8dd1c, type: 3}
   m_Name: KaigoPreset
   m_EditorClassIdentifier: 
-  <CharSetting>k__BackingField: {fileID: 0}
-  <StatAttribute>k__BackingField: {fileID: 0}
+  <InitialCharSetting>k__BackingField: {fileID: 11400000, guid: 23a3d20a9d00b0d45aedef492b3632df,
+    type: 2}
+  <InitialStatAttribute>k__BackingField: {fileID: 11400000, guid: d23144d8285b1d94e851abffc4cb4ae8,
+    type: 2}

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38fe9118fcb57e242be46d6fadd98ab4, type: 3}
+  m_Name: CameraSetting
+  m_EditorClassIdentifier: 
+  <TransitionTime>k__BackingField: 2
+  <InterpolationType>k__BackingField: 3
+  <DungeonCrawler>k__BackingField:
+    <MoveSpeed>k__BackingField: 0.2
+    <LookSpeed>k__BackingField: 0.2
+    <CamOffsetY>k__BackingField: -0.7
+    <CamOffsetZ>k__BackingField: 7
+    <CamPitchAngle>k__BackingField: 35
+  <ThirdPerson>k__BackingField:
+    <MoveSpeed>k__BackingField: 0.2
+    <LookSpeed>k__BackingField: 0.2
+    <DistanceLength>k__BackingField: 3
+    <MinTargetDistance>k__BackingField: 3
+    <MinPitchAngle>k__BackingField: -25
+    <MaxPitchAngle>k__BackingField: 35
+    <CamCollisionRadius>k__BackingField: 0.5
+    <CamCollisionOffset>k__BackingField: 0.2
+    <CamMinCollisionOffset>k__BackingField: 1
+    <CamCollisionJumpSmoothSpeed>k__BackingField: 0.1
+    <CamCollisionLayer>k__BackingField:
+      serializedVersion: 2
+      m_Bits: 1
+    <InvertY>k__BackingField: 1

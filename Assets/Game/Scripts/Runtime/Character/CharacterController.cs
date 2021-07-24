@@ -1,27 +1,31 @@
+using Kaigo.Runtime.Camera;
+using Kaigo.Runtime.Camera.Selection;
 using Kaigo.Runtime.Character.Animation;
 using Kaigo.Runtime.Character.Attribute;
 using Kaigo.Runtime.Character.Input;
 using Kaigo.Runtime.Character.Movement.Locomotion;
+using Kaigo.Runtime.Character.Setting;
 using UnityEngine;
+using Z.SmoothUpdate.Runtime;
+using Z.UnityHelper;
 
 namespace Kaigo.Runtime.Character
 {
 	using UCharacterController = UnityEngine.CharacterController;
 
-	[RequireComponent (typeof (UCharacterController))]
-	[RequireComponent (typeof (StatAttribute), typeof (LocomotionHandler))]
-	[RequireComponent (typeof (AnimationEventHandler), typeof (AnimationHandler))]
-	internal partial class CharacterController : MonoBehaviour
+	[DisallowMultipleComponent]
+	[RequireComponent (typeof (UCharacterController), typeof (SmoothUpdateHandler))]
+	[RequireComponent (typeof (StatAttribute), typeof (CharacterSetting))]
+	[RequireComponent (typeof (LocomotionHandler), typeof (AnimationHandler))]
+	internal partial class CharacterController : MonoBehaviour, ITransform
 	{
-		internal enum InputType
-		{
-			User,
-			AI
-		}
-
 		[Header ("References")]
 		[SerializeField]
 		private UCharacterController _ucharController = null;
+		[field: SerializeField]
+		internal SmoothUpdateHandler SmoothUpdtHandler { get; private set; } = null;
+		[SerializeField]
+		private Transform _camTTargetransform = null;
 		[SerializeField]
 		private Animator _anim = null;
 		[SerializeField]
@@ -38,20 +42,29 @@ namespace Kaigo.Runtime.Character
 		private InputType _inputType = InputType.User;
 
 		private BaseInputHanlder _inputHandler = null;
+		private ICameraTransform _camTransform = null;
+
 		private bool _isInitialized = false;
+
+		internal void Init (CharacterPreset charPreset, ICameraTransform camTransform, InputType inputType)
+		{
+			_camTransform = camTransform;
+			_inputType = inputType;
+
+			Init (charPreset);
+		}
 
 		internal void Init (CharacterPreset charPreset)
 		{
-			_statAttribute = charPreset.StatAttribute;
-			_charSetting = charPreset.CharSetting;
+			if (charPreset != null)
+			{
+				_charSetting.Init (_inputType, charPreset.InitialCharSetting);
+				_statAttribute.Init (charPreset.InitialStatAttribute);
+			}
+
+			Init ();
 
 			_isInitialized = true;
-		}
-
-		internal void Init (CharacterPreset charPreset, InputType inputType)
-		{
-			_statAttribute = charPreset.StatAttribute;
-			_charSetting = charPreset.CharSetting;
 		}
 
 		private void Init ()
@@ -60,7 +73,7 @@ namespace Kaigo.Runtime.Character
 			_statAttribute.Init ();
 			_locoHandler.Init (new LocomotionHandlerInitialPayload
 			{
-				CamTransform = null,
+				CamTransform = _camTransform,
 				Input = _inputHandler,
 				LocoSetting = _charSetting,
 				StatAttribute = _statAttribute,

@@ -1,0 +1,33 @@
+{
+    "name": "DebugCameraThirdPersonInput",
+    "maps": [
+        {
+            "name": "Game",
+            "id": "278132ae-0c5e-42ea-b5c1-4e6b741c6e0a",
+            "actions": [
+                {
+                    "name": "CancelLook",
+                    "type": "Button",
+                    "id": "18191072-59b9-4466-85de-84488a986fbc",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a181ea24-a10a-4bf4-86b1-bd3fffd1a42b",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CancelLook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
