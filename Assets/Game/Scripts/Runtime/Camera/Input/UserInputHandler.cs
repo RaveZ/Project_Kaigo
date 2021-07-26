@@ -16,7 +16,6 @@ namespace Kaigo.Runtime.Camera.Input
 		private DungeonCrawlerInputHandler _dcInputHandler = null;
 
 		private bool _isInitialized = false;
-		private bool _isTogglableRotateActive = false;
 		private ICameraSelection _camSelection = null;
 
 		internal IInputAxis DCInputAxis => _dcInputHandler;

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Kaigo.Runtime.Character.Setting
 {
-	[CreateAssetMenu (fileName = "CharacterSetting", menuName = "Kaigo/Character/Initial Character Setting")]
+	[CreateAssetMenu (fileName = "CharacterSetting", menuName = "Kaigo/Character/Initial Setting")]
 	internal class InitialCharacterSetting : ScriptableObject, ICharacterSetting
 	{
 		[field: Header ("Locomotion")]

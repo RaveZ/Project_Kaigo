@@ -29,20 +29,35 @@ namespace Kaigo.Runtime.Camera.Input
 
 		private void OnEnable ()
 		{
+			if (!_isInitialized)
+				return;
+
 			if (_isInitialized && _isActive)
+			{
 				_cameraThirdPersonInput.Enable ();
+				DebugEnable ();
+			}
 		}
 
 		private void OnDisable ()
 		{
+			if (!_isInitialized)
+				return;
+
 			if (_isInitialized && _isActive)
+			{
 				_cameraThirdPersonInput.Disable ();
+				DebugDisable ();
+			}
 		}
 
 		private void OnDestroy ()
 		{
 			if (_isInitialized)
+			{
 				_cameraThirdPersonInput.Dispose ();
+				DebugDestroy ();
+			}
 		}
 
 		internal void Activate ()
@@ -52,6 +67,7 @@ namespace Kaigo.Runtime.Camera.Input
 
 			_isActive = true;
 			_cameraThirdPersonInput.Enable ();
+			DebugEnable ();
 		}
 
 		internal void Deactivate ()
@@ -61,6 +77,7 @@ namespace Kaigo.Runtime.Camera.Input
 
 			_isActive = false;
 			_cameraThirdPersonInput.Disable ();
+			DebugDisable ();
 		}
 
 		private void LookPerformed (CallbackContext context)

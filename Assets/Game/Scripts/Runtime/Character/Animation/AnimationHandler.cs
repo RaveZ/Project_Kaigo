@@ -1,4 +1,4 @@
-using Kaigo.Runtime.Character.Attribute;
+using Kaigo.Runtime.Character.Stat;
 using UnityEngine;
 using Z.CharacterLocomotion.Runtime;
 
@@ -12,18 +12,18 @@ namespace Kaigo.Runtime.Character.Animation
 
 		private Animator _anim = null;
 		private ILocomotion _loco = null;
-		private IStatAttribute _statAttribute = null;
+		private ICharacterStat _stat = null;
 
-		internal void Init (Animator anim, ILocomotion loco, IStatAttribute statAttribute)
+		internal void Init (Animator anim, ILocomotion loco, ICharacterStat stat)
 		{
 			_anim = anim;
 			_loco = loco;
-			_statAttribute = statAttribute;
+			_stat = stat;
 		}
 
 		internal void OnUpdate ()
 		{
-			_anim.SetFloat (_paramVelocityZID, _loco.MoveSpeed / _statAttribute.MoveSpeed);
+			_anim.SetFloat (_paramVelocityZID, _loco.MoveSpeed / _stat.MoveSpeed);
 		}
 	}
 }

@@ -7,7 +7,7 @@ using Z.SmoothUpdate.Runtime;
 
 namespace Kaigo.Development.Level.DevCharacter
 {
-	using CharacterController = Runtime.Character.CharacterController;
+	using KaigoCharacterController = Runtime.Character.CharacterController;
 
 	[DisallowMultipleComponent]
 	[RequireComponent (typeof (SmoothUpdateController))]
@@ -21,9 +21,13 @@ namespace Kaigo.Development.Level.DevCharacter
 		[SerializeField]
 		private CameraController _camController = null;
 		[SerializeField]
-		private CharacterController _charController = null;
+		private KaigoCharacterController _charController = null;
+		[SerializeField]
+		private KaigoCharacterController _charController2 = null;
 		[SerializeField]
 		private CharacterPreset _charPreset = null;
+		[SerializeField]
+		private CharacterPreset _char2Preset = null;
 
 		private async void Awake ()
 		{
@@ -35,10 +39,12 @@ namespace Kaigo.Development.Level.DevCharacter
 		internal void Init ()
 		{
 			_smoothUpdateController.Init ();
-			_charController.Init (_charPreset, _camController, InputType.User);
-			_camController.Init (_charController);
+			_charController.Init (_charPreset, _camController);
+			_charController2.Init (_char2Preset, _camController);
+			_camController.Init (_charController2);
 
 			_smoothUpdateController.AddSmoothedUpdateHandler (_charController.SmoothUpdtHandler);
+			_smoothUpdateController.AddSmoothedUpdateHandler (_charController2.SmoothUpdtHandler);
 		}
 	}
 }

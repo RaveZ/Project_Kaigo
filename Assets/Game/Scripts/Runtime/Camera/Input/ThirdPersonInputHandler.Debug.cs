@@ -20,6 +20,24 @@ namespace Kaigo.Runtime.Camera.Input
 			_debugCameraThirdPersonInput.Game.CancelLook.canceled += DebugCancelLookCanceled;
 		}
 
+		[Conditional ("UNITY_EDITOR"), Conditional ("DEVELOPMENT_BUILD")]
+		private void DebugEnable ()
+		{
+			_debugCameraThirdPersonInput?.Enable ();
+		}
+
+		[Conditional ("UNITY_EDITOR"), Conditional ("DEVELOPMENT_BUILD")]
+		private void DebugDisable ()
+		{
+			_debugCameraThirdPersonInput?.Disable ();
+		}
+
+		[Conditional ("UNITY_EDITOR"), Conditional ("DEVELOPMENT_BUILD")]
+		private void DebugDestroy ()
+		{
+			_debugCameraThirdPersonInput?.Dispose ();
+		}
+
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 		private void DebugCancelLookStarted (CallbackContext context)
 		{
