@@ -51,6 +51,14 @@ namespace Kaigo.Generated.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""TargetLockOn"",
+                    ""type"": ""Button"",
+                    ""id"": ""fdf1e788-bbaa-4fb7-b58d-0bdaa9e76273"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -196,6 +204,17 @@ namespace Kaigo.Generated.Input
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""333b435a-e92c-40e6-94e9-19f14c57304f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TargetLockOn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -235,6 +254,7 @@ namespace Kaigo.Generated.Input
             m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
             m_Game_Attack = m_Game.FindAction("Attack", throwIfNotFound: true);
             m_Game_Sprint = m_Game.FindAction("Sprint", throwIfNotFound: true);
+            m_Game_TargetLockOn = m_Game.FindAction("TargetLockOn", throwIfNotFound: true);
             // MainMenu
             m_MainMenu = asset.FindActionMap("MainMenu", throwIfNotFound: true);
             m_MainMenu_Newaction = m_MainMenu.FindAction("New action", throwIfNotFound: true);
@@ -291,6 +311,7 @@ namespace Kaigo.Generated.Input
         private readonly InputAction m_Game_Jump;
         private readonly InputAction m_Game_Attack;
         private readonly InputAction m_Game_Sprint;
+        private readonly InputAction m_Game_TargetLockOn;
         public struct GameActions
         {
             private @CharacterInput m_Wrapper;
@@ -299,6 +320,7 @@ namespace Kaigo.Generated.Input
             public InputAction @Jump => m_Wrapper.m_Game_Jump;
             public InputAction @Attack => m_Wrapper.m_Game_Attack;
             public InputAction @Sprint => m_Wrapper.m_Game_Sprint;
+            public InputAction @TargetLockOn => m_Wrapper.m_Game_TargetLockOn;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -320,6 +342,9 @@ namespace Kaigo.Generated.Input
                     @Sprint.started -= m_Wrapper.m_GameActionsCallbackInterface.OnSprint;
                     @Sprint.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnSprint;
                     @Sprint.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnSprint;
+                    @TargetLockOn.started -= m_Wrapper.m_GameActionsCallbackInterface.OnTargetLockOn;
+                    @TargetLockOn.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnTargetLockOn;
+                    @TargetLockOn.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnTargetLockOn;
                 }
                 m_Wrapper.m_GameActionsCallbackInterface = instance;
                 if (instance != null)
@@ -336,6 +361,9 @@ namespace Kaigo.Generated.Input
                     @Sprint.started += instance.OnSprint;
                     @Sprint.performed += instance.OnSprint;
                     @Sprint.canceled += instance.OnSprint;
+                    @TargetLockOn.started += instance.OnTargetLockOn;
+                    @TargetLockOn.performed += instance.OnTargetLockOn;
+                    @TargetLockOn.canceled += instance.OnTargetLockOn;
                 }
             }
         }
@@ -379,6 +407,7 @@ namespace Kaigo.Generated.Input
             void OnJump(InputAction.CallbackContext context);
             void OnAttack(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
+            void OnTargetLockOn(InputAction.CallbackContext context);
         }
         public interface IMainMenuActions
         {

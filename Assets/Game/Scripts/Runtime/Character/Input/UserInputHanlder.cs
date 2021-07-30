@@ -19,6 +19,7 @@ namespace Kaigo.Runtime.Character.Input
 			_charInput.Game.Sprint.canceled += SprintCanceled;
 			_charInput.Game.Attack.performed += MovementPerformed;
 			_charInput.Game.Jump.performed += MovementPerformed;
+			_charInput.Game.TargetLockOn.performed += LockOnPerformed;
 
 			_charInput.Enable ();
 
@@ -68,6 +69,11 @@ namespace Kaigo.Runtime.Character.Input
 		private void JumpPerformed (CallbackContext context)
 		{
 			InvokeJumpAction ();
+		}
+
+		private void LockOnPerformed(CallbackContext context)
+		{
+			
 		}
 	}
 }
