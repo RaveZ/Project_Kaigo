@@ -1,10 +1,10 @@
 using Kaigo.Runtime.Character.Animation;
-using Kaigo.Runtime.Character.Attribute;
-using Kaigo.Runtime.Character.Movement.Locomotion;
+using Kaigo.Runtime.Character.Stat;
 using Kaigo.Runtime.Character.Setting;
 using UnityEngine;
+using Z.CharacterLocomotion.Runtime;
 using Z.SmoothUpdate.Runtime;
-using Z.UnityHelper;
+using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Character
 {
@@ -26,8 +26,8 @@ namespace Kaigo.Runtime.Character
 				_camTTargetransform = transform.GetChild (0);
 			if (_anim == null)
 				_anim = GetComponentInChildren<Animator> ();
-			if (_statAttribute == null)
-				_statAttribute = GetComponent<StatAttribute> ();
+			if (_stat == null)
+				_stat = GetComponent<CharacterStat> ();
 			if (_charSetting == null)
 				_charSetting = GetComponent<CharacterSetting> ();
 			if (_locoHandler == null)

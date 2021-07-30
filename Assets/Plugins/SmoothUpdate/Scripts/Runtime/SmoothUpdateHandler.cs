@@ -19,7 +19,7 @@ namespace Z.SmoothUpdate.Runtime
 
 		private void OnDestroy ()
 		{
-			OnDestroyedTriggered.Invoke (this);
+			OnDestroyedTriggered?.Invoke (this);
 		}
 
 		internal void BeforeFixedUpdate ()

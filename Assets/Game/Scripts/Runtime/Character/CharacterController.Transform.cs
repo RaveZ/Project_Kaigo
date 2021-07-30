@@ -1,13 +1,8 @@
-using Kaigo.Runtime.Character.Animation;
-using Kaigo.Runtime.Character.Attribute;
-using Kaigo.Runtime.Character.Movement.Locomotion;
 using UnityEngine;
-using Z.UnityHelper;
+using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Character
 {
-	using UCharacterController = UnityEngine.CharacterController;
-
 	internal partial class CharacterController : MonoBehaviour, ITransform
 	{
 		Vector3 ITransform.Position => _camTTargetransform.position;

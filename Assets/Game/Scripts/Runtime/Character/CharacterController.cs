@@ -1,13 +1,11 @@
-using Kaigo.Runtime.Camera;
-using Kaigo.Runtime.Camera.Selection;
 using Kaigo.Runtime.Character.Animation;
-using Kaigo.Runtime.Character.Attribute;
+using Kaigo.Runtime.Character.Stat;
 using Kaigo.Runtime.Character.Input;
-using Kaigo.Runtime.Character.Movement.Locomotion;
 using Kaigo.Runtime.Character.Setting;
 using UnityEngine;
+using Z.CharacterLocomotion.Runtime;
 using Z.SmoothUpdate.Runtime;
-using Z.UnityHelper;
+using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Character
 {
@@ -15,7 +13,7 @@ namespace Kaigo.Runtime.Character
 
 	[DisallowMultipleComponent]
 	[RequireComponent (typeof (UCharacterController), typeof (SmoothUpdateHandler))]
-	[RequireComponent (typeof (StatAttribute), typeof (CharacterSetting))]
+	[RequireComponent (typeof (CharacterStat), typeof (CharacterSetting))]
 	[RequireComponent (typeof (LocomotionHandler), typeof (AnimationHandler))]
 	internal partial class CharacterController : MonoBehaviour, ITransform
 	{
@@ -29,7 +27,7 @@ namespace Kaigo.Runtime.Character
 		[SerializeField]
 		private Animator _anim = null;
 		[SerializeField]
-		private StatAttribute _statAttribute = null;
+		private CharacterStat _stat = null;
 		[SerializeField]
 		private CharacterSetting _charSetting = null;
 		[SerializeField]
@@ -39,17 +37,16 @@ namespace Kaigo.Runtime.Character
 		[SerializeField]
 		private AnimationEventHandler _animEventHandler = null;
 		[SerializeField]
-		private InputType _inputType = InputType.User;
+		private NoInputHandler _noInputHandler = null;
 
-		private BaseInputHanlder _inputHandler = null;
+		private BaseInputHandler _inputHandler = null;
 		private ICameraTransform _camTransform = null;
 
 		private bool _isInitialized = false;
 
-		internal void Init (CharacterPreset charPreset, ICameraTransform camTransform, InputType inputType)
+		internal void Init (CharacterPreset charPreset, ICameraTransform camTransform)
 		{
 			_camTransform = camTransform;
-			_inputType = inputType;
 
 			Init (charPreset);
 		}
@@ -58,8 +55,31 @@ namespace Kaigo.Runtime.Character
 		{
 			if (charPreset != null)
 			{
-				_charSetting.Init (_inputType, charPreset.InitialCharSetting);
-				_statAttribute.Init (charPreset.InitialStatAttribute);
+				_inputHandler = charPreset.InputHandler;
+				bool isInputFromUser = typeof (UserInputHandler).IsAssignableFrom (_inputHandler.GetType ());
+
+				_charSetting.Init (isInputFromUser, charPreset.InitialSetting);
+
+				if (isInputFromUser)
+					((UserInputHandler) _inputHandler).Init ();
+				else
+					((AIInputHandler) _inputHandler).Init (new AIInputHandlerInitialPayload
+					{
+						ControlledObj = gameObject,
+						SpawnPos = transform.position,
+						UCharController = _ucharController,
+						AISetting = charPreset.AISetting,
+						AIStat = charPreset.AIStat,
+						BrainHandler = charPreset.BrainHandler
+					});
+
+				_stat.Init (charPreset.InitialStat);
+			}
+			else
+			{
+				_inputHandler = _noInputHandler;
+				_charSetting.Init (false, charPreset.InitialSetting);
+				_stat.Init (null);
 			}
 
 			Init ();
@@ -69,34 +89,18 @@ namespace Kaigo.Runtime.Character
 
 		private void Init ()
 		{
-			InitInput ();
-			_statAttribute.Init ();
 			_locoHandler.Init (new LocomotionHandlerInitialPayload
 			{
 				CamTransform = _camTransform,
-				Input = _inputHandler,
+				InputAxis = _inputHandler,
 				LocoSetting = _charSetting,
-				StatAttribute = _statAttribute,
+				Stat = _stat,
 				UCharController = _ucharController
 			});
-			_animHandler.Init (_anim, _locoHandler, _statAttribute);
+			_animHandler.Init (_anim, _locoHandler, _stat);
 			_animEventHandler.Init (_anim);
 
 			_isInitialized = true;
-		}
-
-		private void InitInput()
-		{
-			if (_inputType == InputType.User)
-			{
-				UserInputHanlder userInputHandler = gameObject.AddComponent<UserInputHanlder> ();
-				userInputHandler.Init ();
-				_inputHandler = userInputHandler;
-			}
-			else
-			{
-
-			}
 		}
 
 		private void FixedUpdate ()
@@ -112,6 +116,7 @@ namespace Kaigo.Runtime.Character
 			if (!_isInitialized)
 				return;
 
+			_inputHandler.OnUpdate ();
 			_animHandler.OnUpdate ();
 		}
 	}

@@ -1,4 +1,4 @@
-using Kaigo.Runtime.Character.Movement.Locomotion;
+using Z.CharacterLocomotion.Runtime;
 
 namespace Kaigo.Runtime.Character.Setting
 {

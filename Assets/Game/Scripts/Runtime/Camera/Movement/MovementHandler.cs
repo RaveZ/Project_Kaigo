@@ -1,6 +1,6 @@
 using Kaigo.Runtime.Camera.Selection;
 using UnityEngine;
-using Z.UnityHelper;
+using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Camera.Movement
 {
@@ -30,7 +30,7 @@ namespace Kaigo.Runtime.Camera.Movement
 				CamTransform = initialPayload.CamTransform,
 				PitchTransform = initialPayload.PitchTransform,
 				CamTargetTransform = initialPayload.CamTargetTransform,
-				Input = initialPayload.DCInput,
+				InputAxis = initialPayload.DCInputAxis,
 				MoveSetting = initialPayload.DCMoveSetting,
 				TransitionSetting = initialPayload.DCTransitionSetting,
 				Timer = initialPayload.Timer
@@ -41,7 +41,7 @@ namespace Kaigo.Runtime.Camera.Movement
 				CamTransform = initialPayload.CamTransform,
 				PitchTransform = initialPayload.PitchTransform,
 				CamTargetTransform = initialPayload.CamTargetTransform,
-				Input = initialPayload.TPInput,
+				InputAxis = initialPayload.TPInputAxis,
 				MoveSetting = initialPayload.TPMoveSetting,
 				TransitionSetting = initialPayload.TPTransitionSetting,
 				Timer = initialPayload.Timer

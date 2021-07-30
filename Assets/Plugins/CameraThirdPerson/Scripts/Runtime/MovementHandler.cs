@@ -1,7 +1,8 @@
 using UnityEngine;
 using Z.Ease;
 using Z.Timer.Runtime;
-using Z.UnityHelper;
+using Z.UnityHelper.Input;
+using Z.UnityHelper.TransformUtil;
 
 namespace Z.CameraThirdPerson.Runtime
 {
@@ -11,7 +12,7 @@ namespace Z.CameraThirdPerson.Runtime
 		private Transform _camTransform = null;
 		private Transform _pitchTransform = null;
 		private ITransform _camTargetTransform = null;
-		private IInput _input = null;
+		private IInputAxis _inputAxis = null;
 		private IMovementSetting _moveSetting = null;
 		private ITransitionSetting _transitionSetting = null;
 		private ITimer _timer = null;
@@ -33,7 +34,7 @@ namespace Z.CameraThirdPerson.Runtime
 
 			_camTransform = initialPayload.CamTransform;
 			_pitchTransform = initialPayload.PitchTransform;
-			_input = initialPayload.Input;
+			_inputAxis = initialPayload.InputAxis;
 			_camTargetTransform = initialPayload.CamTargetTransform;
 			_moveSetting = initialPayload.MoveSetting;
 			_transitionSetting = initialPayload.TransitionSetting;
@@ -120,8 +121,8 @@ namespace Z.CameraThirdPerson.Runtime
 			else
 			{
 				float dirV = _moveSetting.InvertY ? -1f : 1f;
-				_pitchAngle = Mathf.Clamp (_pitchAngle + (_input.LookV * _moveSetting.LookSpeed * dirV), _moveSetting.MinPitchAngle, _moveSetting.MaxPitchAngle);
-				_yawAngle += (_input.LookH * _moveSetting.LookSpeed);
+				_pitchAngle = Mathf.Clamp (_pitchAngle + (_inputAxis.Vertical * _moveSetting.LookSpeed * dirV), _moveSetting.MinPitchAngle, _moveSetting.MaxPitchAngle);
+				_yawAngle += (_inputAxis.Horizontal * _moveSetting.LookSpeed);
 			}
 
 			eul = Vector3.zero;

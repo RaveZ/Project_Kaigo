@@ -1,11 +1,12 @@
 using System.Diagnostics;
 using UnityEngine;
+using Z.UnityHelper.Input;
 
 namespace Kaigo.Runtime.Camera.Input
 {
 	using static UnityEngine.InputSystem.InputAction;
 
-	internal partial class ThirdPersonInputHandler : MonoBehaviour, IInput
+	internal partial class ThirdPersonInputHandler : MonoBehaviour, IInputAxis
 	{
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 		private Generated.Input.Debug.DebugCameraThirdPersonInput _debugCameraThirdPersonInput = null;
@@ -19,14 +20,32 @@ namespace Kaigo.Runtime.Camera.Input
 			_debugCameraThirdPersonInput.Game.CancelLook.canceled += DebugCancelLookCanceled;
 		}
 
+		[Conditional ("UNITY_EDITOR"), Conditional ("DEVELOPMENT_BUILD")]
+		private void DebugEnable ()
+		{
+			_debugCameraThirdPersonInput?.Enable ();
+		}
+
+		[Conditional ("UNITY_EDITOR"), Conditional ("DEVELOPMENT_BUILD")]
+		private void DebugDisable ()
+		{
+			_debugCameraThirdPersonInput?.Disable ();
+		}
+
+		[Conditional ("UNITY_EDITOR"), Conditional ("DEVELOPMENT_BUILD")]
+		private void DebugDestroy ()
+		{
+			_debugCameraThirdPersonInput?.Dispose ();
+		}
+
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 		private void DebugCancelLookStarted (CallbackContext context)
 		{
 			if (_isActive)
 				_cameraThirdPersonInput.Game.Look.performed -= LookPerformed;
 
-			LookH = 0f;
-			LookV = 0f;
+			Horizontal = 0f;
+			Vertical = 0f;
 		}
 
 		private void DebugCancelLookCanceled (CallbackContext context)

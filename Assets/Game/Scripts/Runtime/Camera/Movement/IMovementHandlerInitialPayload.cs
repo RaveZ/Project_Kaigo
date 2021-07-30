@@ -2,14 +2,13 @@ using Kaigo.Runtime.Camera.Selection;
 using System;
 using UnityEngine;
 using Z.Timer.Runtime;
-using Z.UnityHelper;
+using Z.UnityHelper.Input;
+using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Camera.Movement
 {
-	using IDCInput = Z.CameraDungeonCrawler.Runtime.IInput;
 	using IDCMovementSetting = Z.CameraDungeonCrawler.Runtime.IMovementSetting;
 	using IDCTransitionSetting = Z.CameraDungeonCrawler.Runtime.ITransitionSetting;
-	using ITPInput = Z.CameraThirdPerson.Runtime.IInput;
 	using ITPMovementSetting = Z.CameraThirdPerson.Runtime.IMovementSetting;
 	using ITPTransitionSetting = Z.CameraThirdPerson.Runtime.ITransitionSetting;
 
@@ -19,8 +18,8 @@ namespace Kaigo.Runtime.Camera.Movement
 		Transform CamTransform { get; }
 		Transform PitchTransform { get; }
 		ITransform CamTargetTransform { get; }
-		IDCInput DCInput { get; }
-		ITPInput TPInput { get; }
+		IInputAxis DCInputAxis { get; }
+		IInputAxis TPInputAxis { get; }
 		IDCMovementSetting DCMoveSetting { get; }
 		ITPMovementSetting TPMoveSetting { get; }
 		IDCTransitionSetting DCTransitionSetting { get; }

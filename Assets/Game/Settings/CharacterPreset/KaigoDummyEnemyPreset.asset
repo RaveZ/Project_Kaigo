@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a559994f0045137469b415ca87d8dd1c, type: 3}
+  m_Name: KaigoDummyEnemyPreset
+  m_EditorClassIdentifier: 
+  <InitialSetting>k__BackingField: {fileID: 11400000, guid: 23a3d20a9d00b0d45aedef492b3632df,
+    type: 2}
+  <InitialStat>k__BackingField: {fileID: 11400000, guid: f191c95e37bbb5643a1ffe268071bcf1,
+    type: 2}
+  <AISetting>k__BackingField: {fileID: 11400000, guid: 1da40798bd899f04aa0dceee6bb3ea5b,
+    type: 2}
+  <AIStat>k__BackingField: {fileID: 11400000, guid: 433f2a748f67b9549b42351d4adceb16,
+    type: 2}
+  <InputHandler>k__BackingField: {fileID: 11400000, guid: 98fd15db9b894d64cabd46d461445abd,
+    type: 2}
+  <BrainHandler>k__BackingField: {fileID: 11400000, guid: 567534fb5f4db3941995832764335297,
+    type: 2}
