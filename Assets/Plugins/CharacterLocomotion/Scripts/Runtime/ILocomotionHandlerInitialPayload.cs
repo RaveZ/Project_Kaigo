@@ -11,6 +11,7 @@ namespace Z.CharacterLocomotion.Runtime
 		UCharacterController UCharController { get; }
 		ICameraTransform CamTransform { get; }
 		IInputAxis InputAxis { get; }
+		IInputLockOn InputLockOn { get; }
 		ILocomotionStat Stat { get; }
 		ILocomotionSetting LocoSetting { get; }
 		bool IsCamRelative { get; }

@@ -93,6 +93,7 @@ namespace Kaigo.Runtime.Character
 			{
 				CamTransform = _camTransform,
 				InputAxis = _inputHandler,
+				InputLockOn = _inputHandler,
 				LocoSetting = _charSetting,
 				Stat = _stat,
 				UCharController = _ucharController

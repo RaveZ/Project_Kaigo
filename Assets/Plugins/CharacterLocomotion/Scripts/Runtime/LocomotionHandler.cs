@@ -12,6 +12,7 @@ namespace Z.CharacterLocomotion.Runtime
 		private UCharacterController _ucharController = null;
 		private ICameraTransform _camTransform = null;
 		private IInputAxis _inputAxis = null;
+		private IInputLockOn _inputLockOn = null;
 		private ILocomotionStat _stat = null;
 		private ILocomotionSetting _locoSetting = null;
 
@@ -25,11 +26,16 @@ namespace Z.CharacterLocomotion.Runtime
 		public Vector3 MoveDir { get; private set; } = default;
 		public float MoveSpeed { get; private set; } = 0f;
 
+		public Vector3 PrevPos { get; private set; } = default;
+		public Vector3 Dir { get; private set; } = default;
+		public Vector3 LocalDir { get; private set; } = default;
+
 		public void Init (ILocomotionHandlerInitialPayload initialPayload)
 		{
 			_ucharController = initialPayload.UCharController;
 			_camTransform = initialPayload.CamTransform;
 			_inputAxis = initialPayload.InputAxis;
+			_inputLockOn = initialPayload.InputLockOn;
 			_stat = initialPayload.Stat;
 			_locoSetting = initialPayload.LocoSetting;
 
@@ -38,8 +44,18 @@ namespace Z.CharacterLocomotion.Runtime
 
 		public void OnFixedUpdate ()
 		{
-			UpdateLocomotion ();
-			LookAtMovementDirection ();
+            if (_inputLockOn.IsLockOn)//bug
+            {
+				UpdateLocomotion();
+				LookAtLockOn();
+				
+			}
+            else
+            {
+				UpdateLocomotion();
+				LookAtMovementDirection();
+			}
+			
 		}
 
 		private void UpdateLocomotion ()
@@ -85,5 +101,66 @@ namespace Z.CharacterLocomotion.Runtime
 				transform.rotation = Quaternion.Euler (0f, _targetAngle, 0f);
 			}
 		}
+
+
+		public Transform dummyTest;//for test only
+		private void LookAtLockOn()
+        {
+			if (_inputAxis.Horizontal == 0f && _inputAxis.Vertical == 0f)
+				return;
+
+			Vector3 target = dummyTest.position - transform.position;
+			_targetAngle = Mathf.Atan2(target.x, target.z) * Mathf.Rad2Deg;
+
+			if (CanTurn)
+			{
+				/// lerp the rotation
+				float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetAngle, ref _turnSmoothVelocity, _locoSetting.TurnSmoothTime);
+				transform.rotation = Quaternion.Euler(0f, angle, 0f);
+			}
+			else if (_isSnappingDir)
+			{
+				_isSnappingDir = false;
+				transform.rotation = Quaternion.Euler(0f, _targetAngle, 0f);
+			}
+		}
+
+		
+		private void DirectionDetect()
+        {
+			Dir = transform.position - PrevPos;
+			LocalDir = transform.InverseTransformDirection(Dir).normalized;
+			
+
+			//for animation when entering battle
+			if (LocalDir.z < -0.5)
+			{
+				if (LocalDir.x > 0.5) Debug.Log("strafeRightBackward");
+				else if (LocalDir.x < -0.5) Debug.Log("strafeLeftBackward");
+				else Debug.Log("walkBackward");
+
+			}
+			else if (LocalDir.z > 0.5)
+			{
+				if (LocalDir.x > 0.5) Debug.Log("strafeRightForward");
+				else if (LocalDir.x < -0.5) Debug.Log("strafeLeftForward");
+				else Debug.Log("walkForward");
+
+			}
+			else if (LocalDir.x < -0.5)
+			{
+				if (LocalDir.z > 0.5) Debug.Log("strafeLeftForward");
+				else if (LocalDir.z < -0.5) Debug.Log("strafeRightBackward");
+				else Debug.Log("StrafeLeft");
+
+			}
+			else if (LocalDir.x > 0.5)
+			{
+				if (LocalDir.z > 0.5) Debug.Log("strafeRightForward");
+				else if (LocalDir.z < -0.5) Debug.Log("strafeRightBackward");
+				else Debug.Log("StrafeRight");
+			}
+			PrevPos = transform.position;
+        }
 	}
 }

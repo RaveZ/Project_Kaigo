@@ -1,4 +1,4 @@
-// GENERATED AUTOMATICALLY FROM 'Assets/Game/Settings/Input/CharacterInput.inputactions'
+// GENERATED AUTOMATICALLY FROM 'Assets/Game/Settings/InputAction/CharacterInput.inputactions'
 
 using System;
 using System.Collections;
@@ -208,7 +208,7 @@ namespace Kaigo.Generated.Input
                 {
                     ""name"": """",
                     ""id"": ""333b435a-e92c-40e6-94e9-19f14c57304f"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Mouse>/middleButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
