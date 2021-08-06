@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using Z.Timer.Runtime;
-using Z.UnityHelper.Input;
 using Z.UnityHelper.TransformUtil;
 
 namespace Z.CameraDungeonCrawler.Runtime
@@ -14,7 +13,8 @@ namespace Z.CameraDungeonCrawler.Runtime
 		public IInputAxis InputAxis { get; set; }
 		public IMovementSetting MoveSetting { get; set; }
 		public ITransitionSetting TransitionSetting { get; set; }
-		public ITimer Timer { get; set; }
+		public ITimer TimerCamTransition { get; set; }
+		public ITimer TimerLockTransition { get; set; }
 
 		#region IDisposable Support
 		private bool _disposedValue = false; // To detect redundant calls
@@ -37,7 +37,8 @@ namespace Z.CameraDungeonCrawler.Runtime
 				InputAxis = null;
 				MoveSetting = null;
 				TransitionSetting = null;
-				Timer = null;
+				TimerCamTransition = null;
+				TimerLockTransition = null;
 
 				_disposedValue = true;
 			}

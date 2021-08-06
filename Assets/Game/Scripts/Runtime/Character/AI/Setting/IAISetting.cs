@@ -1,11 +1,11 @@
 using Z.SensorEye.Runtime;
-using Z.UnityHelper.AI;
 
 namespace Kaigo.Runtime.Character.AI.Setting
 {
-	internal interface IAISetting : IBaseAISetting
+	internal interface IAISetting
 	{
 		ISensorEyeSetting EyeSetting { get; }
+		float StoppingDistance { get; }
 		float WaitTimeForRecalculatePath { get; }
 	}
 }

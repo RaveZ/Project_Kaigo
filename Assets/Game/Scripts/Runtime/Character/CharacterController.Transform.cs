@@ -1,22 +1,21 @@
 using UnityEngine;
-using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Character
 {
-	internal partial class CharacterController : MonoBehaviour, ITransform
+	internal partial class CharacterController
 	{
-		Vector3 ITransform.Position => _camTTargetransform.position;
-		Vector3 ITransform.LocalPosition => _camTTargetransform.localPosition;
-		Vector3 ITransform.EulerAngles => _camTTargetransform.eulerAngles;
-		Vector3 ITransform.LocalEulerAngles => _camTTargetransform.localEulerAngles;
-		Quaternion ITransform.Rotation => _camTTargetransform.rotation;
-		Quaternion ITransform.LocalRotation => _camTTargetransform.localRotation;
-		Vector3 ITransform.LocalScale => _camTTargetransform.localScale;
-		float ITransform.Roll => _camTTargetransform.eulerAngles.z;
-		float ITransform.Pitch => _camTTargetransform.eulerAngles.x;
-		float ITransform.Yaw => _camTTargetransform.eulerAngles.y;
-		Vector3 ITransform.Up => _camTTargetransform.up;
-		Vector3 ITransform.Right => _camTTargetransform.right;
-		Vector3 ITransform.Forward => _camTTargetransform.forward;
+		public Vector3 Position => _camTargetTransform.position;
+		public Vector3 LocalPosition => _camTargetTransform.localPosition;
+		public Vector3 EulerAngles => _camTargetTransform.eulerAngles;
+		public Vector3 LocalEulerAngles => _camTargetTransform.localEulerAngles;
+		public Quaternion Rotation => _camTargetTransform.rotation;
+		public Quaternion LocalRotation => _camTargetTransform.localRotation;
+		public Vector3 LocalScale => _camTargetTransform.localScale;
+		public float Roll => _camTargetTransform.eulerAngles.z;
+		public float Pitch => _camTargetTransform.eulerAngles.x;
+		public float Yaw => _camTargetTransform.eulerAngles.y;
+		public Vector3 Up => _camTargetTransform.up;
+		public Vector3 Right => _camTargetTransform.right;
+		public Vector3 Forward => _camTargetTransform.forward;
 	}
 }

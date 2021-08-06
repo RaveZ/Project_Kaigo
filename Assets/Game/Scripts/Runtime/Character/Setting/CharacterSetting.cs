@@ -15,6 +15,11 @@ namespace Kaigo.Runtime.Character.Setting
 		public float TurnSmoothTime => _initialCharSetting.TurnSmoothTime;
 		public float GravityScale => _initialCharSetting.GravityScale;
 
+		public int AllocationCount => _initialCharSetting.AllocationCount;
+		public float Radius => _initialCharSetting.Radius;
+		public LayerMask Layer => _initialCharSetting.Layer;
+		public QueryTriggerInteraction TriggerInteraction => _initialCharSetting.TriggerInteraction;
+
 		public bool IsCamRelative { get; private set; } = false;
 
 		private void Init (bool isCamRelative)

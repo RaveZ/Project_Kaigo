@@ -19,7 +19,7 @@ namespace Kaigo.Runtime.Character.Input
 			_charInput.Game.Sprint.canceled += SprintCanceled;
 			_charInput.Game.Attack.performed += MovementPerformed;
 			_charInput.Game.Jump.performed += MovementPerformed;
-			_charInput.Game.TargetLockOn.started += LockOnPerformed;
+			_charInput.Game.ToggleTargetLock.performed += ToggleTargetLockPerformed;
 
 			_charInput.Enable ();
 
@@ -71,10 +71,13 @@ namespace Kaigo.Runtime.Character.Input
 			InvokeJumpAction ();
 		}
 
-		private void LockOnPerformed(CallbackContext context)
+		private void ToggleTargetLockPerformed(CallbackContext context)
 		{
-			if (IsLockOn) IsLockOn = false;
-			else IsLockOn = true;
+			IsTargetLockOn = !IsTargetLockOn;
+			if (IsTargetLockOn)
+				InvokActivateTargetLockAction ();
+			else
+				InvokeDeactivateTargetLockAction ();
 		}
 	}
 }

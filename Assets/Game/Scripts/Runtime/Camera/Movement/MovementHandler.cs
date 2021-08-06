@@ -33,7 +33,7 @@ namespace Kaigo.Runtime.Camera.Movement
 				InputAxis = initialPayload.DCInputAxis,
 				MoveSetting = initialPayload.DCMoveSetting,
 				TransitionSetting = initialPayload.DCTransitionSetting,
-				Timer = initialPayload.Timer
+				TimerCamTransition = initialPayload.TimerCamTransition
 			});
 
 			_tpMoveHandler.Init (new TPMovementHandlerInitialPayload
@@ -42,17 +42,14 @@ namespace Kaigo.Runtime.Camera.Movement
 				PitchTransform = initialPayload.PitchTransform,
 				CamTargetTransform = initialPayload.CamTargetTransform,
 				InputAxis = initialPayload.TPInputAxis,
+				FocusedObject = initialPayload.FocusedObject,
 				MoveSetting = initialPayload.TPMoveSetting,
 				TransitionSetting = initialPayload.TPTransitionSetting,
-				Timer = initialPayload.Timer
+				FocusSetting = initialPayload.FocusSetting,
+				TimerCamTransition = initialPayload.TimerCamTransition
 			});
 
 			initialPayload.Dispose ();
-		}
-
-		internal void SetTarget (ITransform camTargetTransform)
-		{
-
 		}
 
 		internal void OnSelectCamera (CameraType type)
@@ -70,17 +67,17 @@ namespace Kaigo.Runtime.Camera.Movement
 			}
 		}
 
-		internal void OnLateUpdate ()
+		internal void HandleLateUpdate ()
 		{
 			switch (_camSelection.CamType)
 			{
 				default:
 				case CameraType.Length:
 				case CameraType.DungeonCrawler:
-					_dcMoveHandler.OnLateUpdate ();
+					_dcMoveHandler.HandleLateUpdate ();
 					break;
 				case CameraType.ThirdPerson:
-					_tpMoveHandler.OnLateUpdate ();
+					_tpMoveHandler.HandleLateUpdate ();
 					break;
 			}
 		}

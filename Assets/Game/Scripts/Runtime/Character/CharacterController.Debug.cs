@@ -1,14 +1,19 @@
+using CleverCrow.Fluid.BTs.Trees;
+using Kaigo.Runtime.Character.Input;
+using System.Diagnostics;
 using UnityEngine;
-using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Character
 {
-	internal partial class CharacterController : MonoBehaviour, ITransform
+	internal partial class CharacterController
 	{
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 		[Header ("Editor Only")]
 		[SerializeField]
 		private bool _useAwakeToInit = false;
+
+		[SerializeField]
+		private BehaviorTree _debugBTree = null;
 
 		private async void Awake ()
 		{
@@ -16,6 +21,14 @@ namespace Kaigo.Runtime.Character
 
 			if (_useAwakeToInit)
 				Init ();
+		}
+
+		[Conditional ("UNITY_EDITOR"), Conditional ("DEVELOPMENT_BUILD")]
+		private void DebugInitInput (bool isInputFromUser)
+		{
+			UnityEngine.Debug.Log (isInputFromUser);
+			if (!isInputFromUser)
+				_debugBTree = ((AIInputHandler) _inputHandler).DebugBTree;
 		}
 #endif
 	}

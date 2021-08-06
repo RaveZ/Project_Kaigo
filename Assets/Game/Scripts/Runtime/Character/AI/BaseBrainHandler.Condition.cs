@@ -1,9 +1,8 @@
 using UnityEngine;
-using Z.Timer.Runtime;
 
 namespace Kaigo.Runtime.Character.AI
 {
-	internal abstract partial class BaseBrainHandler : ScriptableObject, ITimerLimit
+	internal abstract partial class BaseBrainHandler
 	{
 		protected bool HasTarget ()
 		{

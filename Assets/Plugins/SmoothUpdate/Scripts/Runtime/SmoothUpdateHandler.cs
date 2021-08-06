@@ -38,7 +38,7 @@ namespace Z.SmoothUpdate.Runtime
 			_transformDatas [_index] = CurrentTransformData ();
 		}
 
-		internal void OnUpdate (float factor)
+		internal void HandleUpdate (float factor)
 		{
 			// Set interpolated transform for being rendered.
 			TransformData prevTransformData = _transformDatas [NextIndex ()];

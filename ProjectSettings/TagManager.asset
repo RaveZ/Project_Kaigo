@@ -14,8 +14,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - TargetLockable
+  - Character
   - isPlayer
   - isGround
   - isEnemy

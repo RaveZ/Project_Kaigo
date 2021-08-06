@@ -1,20 +1,21 @@
 using System;
 using UnityEngine;
 using Z.Timer.Runtime;
-using Z.UnityHelper.Input;
 using Z.UnityHelper.TransformUtil;
 
 namespace Z.CameraThirdPerson.Runtime
 {
 	public class MovementHandlerInitialPayload : IMovementHandlerInitialPayload
 	{
-		public Transform CamTransform { get; set;  }
+		public Transform CamTransform { get; set; }
 		public Transform PitchTransform { get; set; }
 		public ITransform CamTargetTransform { get; set; }
 		public IInputAxis InputAxis { get; set; }
+		public IFocusedObject FocusedObject { get; set; }
 		public IMovementSetting MoveSetting { get; set; }
 		public ITransitionSetting TransitionSetting { get; set; }
-		public ITimer Timer { get; set; }
+		public IFocusSetting FocusSetting { get; set; }
+		public ITimer TimerCamTransition { get; set; }
 
 		#region IDisposable Support
 		private bool _disposedValue = false; // To detect redundant calls
@@ -35,9 +36,11 @@ namespace Z.CameraThirdPerson.Runtime
 				PitchTransform = null;
 				CamTargetTransform = null;
 				InputAxis = null;
+				FocusedObject = null;
 				MoveSetting = null;
 				TransitionSetting = null;
-				Timer = null;
+				FocusSetting = null;
+				TimerCamTransition = null;
 
 				_disposedValue = true;
 			}

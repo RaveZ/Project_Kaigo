@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Z.Tasks;
 using Z.Timer.Runtime;
-using Z.UnityHelper.AI;
 
 namespace Z.SensorEye.Runtime
 {
@@ -15,7 +14,6 @@ namespace Z.SensorEye.Runtime
 		private TimerHandler _timerHandler = null;
 		private ISensorEyeSetting _sensorSetting = null;
 		private ISensorEyeStat _sensorStat = null;
-		private IBaseBlackboard _blackboard = null;
 
 		private readonly Collider [] _inAreaTargets = new Collider [20];
 		private int _inAreaTargetCount = 0;
@@ -45,7 +43,7 @@ namespace Z.SensorEye.Runtime
 			}
 		}
 
-		public void Init (ISensorEyeSetting sensorSetting, ISensorEyeStat sensorStat, IBaseBlackboard blackboard, CancellationToken ct)
+		public void Init (ISensorEyeSetting sensorSetting, ISensorEyeStat sensorStat, CancellationToken ct)
 		{
 			_timerHandler = gameObject.AddComponent<TimerHandler> ();
 			_timerHandler.Init (this);
@@ -53,15 +51,15 @@ namespace Z.SensorEye.Runtime
 
 			_sensorSetting = sensorSetting;
 			_sensorStat = sensorStat;
-			_blackboard = blackboard;
+
 			_ct = ct;
 		}
 
-		public void OnUpdate ()
+		public void HandleUpdate ()
 		{
 			if (_timerHandler.IsTicking)
 			{
-				_timerHandler.OnUpdate ();
+				_timerHandler.HandleUpdate ();
 				return;
 			}
 
@@ -74,7 +72,7 @@ namespace Z.SensorEye.Runtime
 			if (_isSensorInProgress)
 				return;
 
-			if (_blackboard.Target == null)
+			if (Target == null)
 			{
 				_isSensorInProgress = true;
 				await TaskUtil.DoTask (OverlapSphereNonAllocTask (), _ct);
@@ -91,7 +89,7 @@ namespace Z.SensorEye.Runtime
 		{
 			float startTime = Time.time;
 
-			_inAreaTargetCount = Physics.OverlapSphereNonAlloc (transform.position, _sensorStat.Radius, _inAreaTargets, _sensorSetting.TargetLayer, QueryTriggerInteraction.Collide);
+			_inAreaTargetCount = Physics.OverlapSphereNonAlloc (transform.position, _sensorStat.Radius, _inAreaTargets, _sensorSetting.TargetLayer, _sensorSetting.TriggerInteraction);
 
 			startTime = await TaskUtil.YieldIfOverTimeLimit (startTime, _sensorSetting.UpdateMaxTime, _ct);
 		}
@@ -114,7 +112,7 @@ namespace Z.SensorEye.Runtime
 					continue;
 
 				Vector3 targetDir = (_inAreaTargets [i].transform.position - transform.position).normalized;
-				if (Vector3.Dot (_inAreaTargets [i].transform.forward, targetDir) < _sensorSetting.FrontDotLimit)
+				if (Vector3.Dot (transform.forward, targetDir) < _sensorSetting.FrontDotLimit)
 					continue;
 
 				_inFrontTargets [_inFrontTargetsCount++] = _inAreaTargets [i].gameObject;
@@ -183,7 +181,7 @@ namespace Z.SensorEye.Runtime
 			float dist = dir.magnitude;
 			dir.Normalize ();
 			int hitCount = (Physics.RaycastNonAlloc (sourcePos, dir, _hits, dist, _sensorSetting.ObstructLayer, QueryTriggerInteraction.Collide));
-			if (hitCount > 1)
+			if (hitCount >= 1)
 				Target = null;
 		}
 	}

@@ -17,10 +17,11 @@ MonoBehaviour:
   _eyeSetting:
     <TargetLayer>k__BackingField:
       serializedVersion: 2
-      m_Bits: 1
+      m_Bits: 128
     <ObstructLayer>k__BackingField:
       serializedVersion: 2
       m_Bits: 1
+    <TriggerInteraction>k__BackingField: 2
     <FrontDotLimit>k__BackingField: 0.75
     <UpdateMaxTime>k__BackingField: 0.015
     <LineOfSightHeight>k__BackingField: 0.5

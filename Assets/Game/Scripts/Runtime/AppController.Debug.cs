@@ -1,9 +1,8 @@
 using System.Diagnostics;
-using UnityEngine;
 
 namespace Kaigo.Runtime
 {
-	internal partial class AppController : MonoBehaviour
+	internal partial class AppController
 	{
 		[Conditional ("UNITY_EDITOR"), Conditional ("DEVELOPMENT_BUILD")]
 		private void DebugInit ()

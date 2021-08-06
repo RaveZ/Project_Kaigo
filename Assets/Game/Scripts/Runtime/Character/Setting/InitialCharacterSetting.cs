@@ -17,5 +17,17 @@ namespace Kaigo.Runtime.Character.Setting
 		public float GravityScale { get; private set; } = 1f;
 		[field: SerializeField]
 		public bool IsCamRelative { get; private set; } = false;
+
+		[field: Header ("Target Lock")]
+		[field: SerializeField]
+		[field: Min (1f)]
+		public int AllocationCount { get; private set; } = 10;
+		[field: SerializeField]
+		[field: Min (1f)]
+		public float Radius { get; private set; } = 20f;
+		[field: SerializeField]
+		public LayerMask Layer { get; private set; } = default;
+		[field: SerializeField]
+		public QueryTriggerInteraction TriggerInteraction { get; private set; } = QueryTriggerInteraction.Ignore;
 	}
 }

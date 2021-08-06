@@ -4,7 +4,7 @@ using Z.SensorEye.Runtime;
 
 namespace Kaigo.Runtime.Character.AI.Setting
 {
-	internal partial class AISetting : ScriptableObject, IAISetting
+	internal partial class AISetting : ScriptableObject
 	{
 		[Serializable]
 		internal class SensorEyeSetting : ISensorEyeSetting
@@ -13,6 +13,8 @@ namespace Kaigo.Runtime.Character.AI.Setting
 			public LayerMask TargetLayer { get; private set; } = default;
 			[field: SerializeField]
 			public LayerMask ObstructLayer { get; private set; } = default;
+			[field: SerializeField]
+			public QueryTriggerInteraction TriggerInteraction { get; private set; } = default;
 			[field: SerializeField]
 			[field: Range (0f, 1f)]
 			public float FrontDotLimit { get; private set; } = 0.75f;

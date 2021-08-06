@@ -1,9 +1,9 @@
 using Kaigo.Generated.Input;
 using UnityEngine;
+using Z.CameraDungeonCrawler.Runtime;
 
 namespace Kaigo.Runtime.Camera.Input
 {
-	using Z.UnityHelper.Input;
 	using static UnityEngine.InputSystem.InputAction;
 
 	[DisallowMultipleComponent]

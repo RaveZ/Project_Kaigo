@@ -11,7 +11,7 @@ namespace Kaigo.Runtime.Character.AI.Setting
 		[field: Range (0f, 1f)]
 		public float WaitTimeForRecalculatePath { get; private set; } = 0.1f;
 		[field: SerializeField]
-		[field: Range (0f, 1f)]
+		[field: Min (0f)]
 		public float StoppingDistance { get; private set; } = 1f;
 
 		[Header ("Sensor Eye Setting")]

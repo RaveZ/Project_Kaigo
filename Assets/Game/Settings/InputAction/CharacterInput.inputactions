@@ -38,7 +38,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "TargetLockOn",
+                    "name": "ToggleTargetLock",
                     "type": "Button",
                     "id": "fdf1e788-bbaa-4fb7-b58d-0bdaa9e76273",
                     "expectedControlType": "Button",
@@ -197,7 +197,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "TargetLockOn",
+                    "action": "ToggleTargetLock",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

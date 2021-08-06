@@ -6,6 +6,7 @@ namespace Z.SensorEye.Runtime
 	{
 		LayerMask TargetLayer { get; }
 		LayerMask ObstructLayer { get; }
+		QueryTriggerInteraction TriggerInteraction { get; }
 		float FrontDotLimit { get; }
 		float UpdateMaxTime { get; }
 		float LineOfSightHeight { get; }

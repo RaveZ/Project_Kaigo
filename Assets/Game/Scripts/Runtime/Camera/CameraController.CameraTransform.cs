@@ -1,10 +1,8 @@
 using UnityEngine;
-using Z.Timer.Runtime;
-using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Camera
 {
-	internal partial class CameraController : MonoBehaviour, ICameraTransform, ITimerLimit
+	internal partial class CameraController
 	{
 		public Vector3 Position => transform.position;
 		public float Pitch => transform.eulerAngles.x;

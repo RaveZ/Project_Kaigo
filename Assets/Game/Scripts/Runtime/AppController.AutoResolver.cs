@@ -1,9 +1,8 @@
 using Kaigo.Runtime.Level;
-using UnityEngine;
 
 namespace Kaigo.Runtime
 {
-	internal partial class AppController : MonoBehaviour
+	internal partial class AppController
 	{
 #if UNITY_EDITOR
 		private void OnValidate ()

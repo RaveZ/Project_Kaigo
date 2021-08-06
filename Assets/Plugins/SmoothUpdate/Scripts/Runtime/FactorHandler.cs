@@ -17,13 +17,13 @@ namespace Z.SmoothUpdate.Runtime
 			_lastIndex = 0;
 		}
 
-		internal void OnFixedUpdate ()
+		internal void HandleFixedUpdate ()
 		{
 			_lastIndex = NextIndex ();
 			_lastFixedUpdates [_lastIndex] = Time.fixedTime;
 		}
 
-		internal void OnUpdate ()
+		internal void HandleUpdate ()
 		{
 			float lastTime = _lastFixedUpdates [_lastIndex];
 			float prevTime = _lastFixedUpdates [NextIndex ()];

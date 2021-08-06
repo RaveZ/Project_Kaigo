@@ -93,7 +93,7 @@ namespace Z.SmoothUpdate.Runtime
 
 		private void FixedUpdate ()
 		{
-			_factorHandler.OnFixedUpdate ();
+			_factorHandler.HandleFixedUpdate ();
 		}
 
 		private void AfterFixedUpdate ()
@@ -104,9 +104,9 @@ namespace Z.SmoothUpdate.Runtime
 
 		private void Update ()
 		{
-			_factorHandler.OnUpdate ();
+			_factorHandler.HandleUpdate ();
 			for (int i = 0; i < _smoothUpdateHandlerList.Count; ++i)
-				_smoothUpdateHandlerList [i].OnUpdate (_factorHandler.Factor);
+				_smoothUpdateHandlerList [i].HandleUpdate (_factorHandler.Factor);
 		}
 	}
 }

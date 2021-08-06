@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Kaigo.Runtime
 {
-	internal partial class AppController : MonoBehaviour
+	internal partial class AppController
 	{
 		private static bool _isPlayedFromMain = false;
 		private static bool _isReady = false;

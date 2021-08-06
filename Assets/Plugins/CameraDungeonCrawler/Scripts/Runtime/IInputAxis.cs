@@ -1,4 +1,4 @@
-namespace Z.UnityHelper.Input
+namespace Z.CameraDungeonCrawler.Runtime
 {
 	public interface IInputAxis
 	{

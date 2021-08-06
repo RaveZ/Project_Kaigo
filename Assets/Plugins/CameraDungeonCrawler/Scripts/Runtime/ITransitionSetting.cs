@@ -4,7 +4,7 @@ namespace Z.CameraDungeonCrawler.Runtime
 {
 	public interface ITransitionSetting
 	{
-		float Time { get; }
+		float TimeCamTransition { get; }
 		EaseType InterpolationType{ get; }
 	}
 }

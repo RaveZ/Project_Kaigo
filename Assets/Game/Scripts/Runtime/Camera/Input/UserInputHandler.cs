@@ -1,10 +1,11 @@
 using Kaigo.Runtime.Camera.Selection;
 using UnityEngine;
-using Z.UnityHelper.Input;
 
 namespace Kaigo.Runtime.Camera.Input
 {
 	using CameraType = Selection.CameraType;
+	using IDCInputAxis = Z.CameraDungeonCrawler.Runtime.IInputAxis;
+	using ITPInputAxis = Z.CameraThirdPerson.Runtime.IInputAxis;
 
 	[DisallowMultipleComponent]
 	[RequireComponent (typeof (DungeonCrawlerInputHandler), typeof (ThirdPersonInputHandler))]
@@ -18,8 +19,8 @@ namespace Kaigo.Runtime.Camera.Input
 		private bool _isInitialized = false;
 		private ICameraSelection _camSelection = null;
 
-		internal IInputAxis DCInputAxis => _dcInputHandler;
-		internal IInputAxis TPInputAxis => _tpInputHandler;
+		internal IDCInputAxis DCInputAxis => _dcInputHandler;
+		internal ITPInputAxis TPInputAxis => _tpInputHandler;
 
 		internal void Init (ICameraSelection camSelection)
 		{

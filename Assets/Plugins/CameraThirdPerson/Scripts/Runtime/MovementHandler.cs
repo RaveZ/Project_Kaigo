@@ -1,7 +1,6 @@
 using UnityEngine;
 using Z.Ease;
 using Z.Timer.Runtime;
-using Z.UnityHelper.Input;
 using Z.UnityHelper.TransformUtil;
 
 namespace Z.CameraThirdPerson.Runtime
@@ -13,9 +12,11 @@ namespace Z.CameraThirdPerson.Runtime
 		private Transform _pitchTransform = null;
 		private ITransform _camTargetTransform = null;
 		private IInputAxis _inputAxis = null;
+		private IFocusedObject _focusedObject = null;
 		private IMovementSetting _moveSetting = null;
 		private ITransitionSetting _transitionSetting = null;
-		private ITimer _timer = null;
+		private IFocusSetting _focusSetting = null;
+		private ITimer _timerCamTransition = null;
 
 		private bool _isTargetValid = false;
 		private Vector3 _camVelocity = default;
@@ -29,16 +30,19 @@ namespace Z.CameraThirdPerson.Runtime
 		private float _transitionTargetYawAngle = 0f;
 		private readonly RaycastHit [] _hits = new RaycastHit [10];
 
+		public bool HasTargetLocked => _focusedObject.Target != null;
+
 		public void Init (IMovementHandlerInitialPayload initialPayload)
 		{
-
 			_camTransform = initialPayload.CamTransform;
 			_pitchTransform = initialPayload.PitchTransform;
 			_inputAxis = initialPayload.InputAxis;
+			_focusedObject = initialPayload.FocusedObject;
 			_camTargetTransform = initialPayload.CamTargetTransform;
 			_moveSetting = initialPayload.MoveSetting;
 			_transitionSetting = initialPayload.TransitionSetting;
-			_timer = initialPayload.Timer;
+			_focusSetting = initialPayload.FocusSetting;
+			_timerCamTransition = initialPayload.TimerCamTransition;
 
 			_isTargetValid = _camTargetTransform != null;
 
@@ -61,17 +65,17 @@ namespace Z.CameraThirdPerson.Runtime
 			_transitionYawAngle = transform.eulerAngles.y;
 			_transitionTargetYawAngle = _camTargetTransform.Yaw;
 
-			_timer.Restart ();
+			_timerCamTransition.Restart ();
 		}
 
-		public void OnLateUpdate ()
+		public void HandleLateUpdate ()
 		{
 			if (!_isTargetValid)
 				return;
 
 			FollowTarget ();
 			RotateCamera ();
-			if (!_timer.IsTicking)
+			if (!_timerCamTransition.IsTicking)
 				HandleCollision ();
 		}
 
@@ -80,9 +84,9 @@ namespace Z.CameraThirdPerson.Runtime
 			float offsetY;
 			float offsetZ;
 
-			if (_timer.IsTicking)
+			if (_timerCamTransition.IsTicking)
 			{
-				float t = EaseCalculator.GetCalculatedAlpha (_timer.TickNormalized, _transitionSetting.InterpolationType);
+				float t = EaseCalculator.GetCalculatedAlpha (_timerCamTransition.TickNormalized, _transitionSetting.InterpolationType);
 				offsetY = Mathf.Lerp (_transitionOffsetY, 0f, t);
 				offsetZ = Mathf.Lerp (_transitionOffsetZ, _moveSetting.DistanceLength, t);
 
@@ -109,9 +113,9 @@ namespace Z.CameraThirdPerson.Runtime
 			Vector3 eul;
 			Quaternion targetRot;
 
-			if (_timer.IsTicking)
+			if (_timerCamTransition.IsTicking)
 			{
-				float t = EaseCalculator.GetCalculatedAlpha (_timer.TickNormalized, _transitionSetting.InterpolationType);
+				float t = EaseCalculator.GetCalculatedAlpha (_timerCamTransition.TickNormalized, _transitionSetting.InterpolationType);
 				Quaternion from = Quaternion.Euler (_transitionPitchAngle, _transitionYawAngle, 0f);
 				Quaternion to = Quaternion.Euler (_camTargetTransform.Pitch, _transitionTargetYawAngle, 0f);
 				Vector3 transitionEul = Quaternion.Slerp (from, to, t).eulerAngles;
@@ -120,9 +124,34 @@ namespace Z.CameraThirdPerson.Runtime
 			}
 			else
 			{
-				float dirV = _moveSetting.InvertY ? -1f : 1f;
-				_pitchAngle = Mathf.Clamp (_pitchAngle + (_inputAxis.Vertical * _moveSetting.LookSpeed * dirV), _moveSetting.MinPitchAngle, _moveSetting.MaxPitchAngle);
-				_yawAngle += (_inputAxis.Horizontal * _moveSetting.LookSpeed);
+				if (HasTargetLocked)
+				{
+					float prev = _pitchAngle;
+					Vector3 targetPos = new Vector3 (0f, _focusedObject.Target.Position.y, 0f);
+					Vector3 pos = new Vector3 (0f, transform.position.y, 0f);
+					Vector3 dirPitch = (_focusedObject.Target.Position - transform.position).normalized;
+					Vector3 forwardPitch = Vector3.ProjectOnPlane (dirPitch, Vector3.up).normalized;
+
+					float targetPitch = Vector3.SignedAngle (forwardPitch, dirPitch, _camTargetTransform.Right);
+					float pitchDiff = Mathf.Abs (_pitchAngle - targetPitch);
+					if (pitchDiff < _focusSetting.DiffLimitToSmooth)
+						_pitchAngle = targetPitch;
+					else
+						_pitchAngle = Mathf.Lerp (_pitchAngle, targetPitch, _focusSetting.FocusSmooth);
+
+					float targetYaw = _camTargetTransform.Yaw;
+					float yawDiff = Mathf.Abs (_yawAngle - targetYaw);
+					if (yawDiff < _focusSetting.DiffLimitToSmooth)
+						_yawAngle = targetYaw;
+					else
+						_yawAngle = Mathf.Lerp (_yawAngle, _camTargetTransform.Yaw, _focusSetting.FocusSmooth);
+				}
+				else
+				{
+					float dirV = _moveSetting.InvertY ? -1f : 1f;
+					_pitchAngle = Mathf.Clamp (_pitchAngle + (_inputAxis.Vertical * _moveSetting.LookSpeed * dirV), _moveSetting.MinPitchAngle, _moveSetting.MaxPitchAngle);
+					_yawAngle += (_inputAxis.Horizontal * _moveSetting.LookSpeed);
+				}
 			}
 
 			eul = Vector3.zero;

@@ -1,14 +1,16 @@
 using Kaigo.Runtime.Camera.Input;
-using Kaigo.Runtime.Camera.Movement;
 using Kaigo.Runtime.Camera.Selection;
 using Kaigo.Runtime.Camera.Setting;
 using UnityEngine;
+using Z.CameraThirdPerson.Runtime;
 using Z.Timer.Runtime;
 using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Camera
 {
 	using CameraType = Selection.CameraType;
+	using MovementHandler = Movement.MovementHandler;
+	using MovementHandlerInitialPayload = Movement.MovementHandlerInitialPayload;
 	using UCamera = UnityEngine.Camera;
 
 	[DisallowMultipleComponent]
@@ -30,11 +32,11 @@ namespace Kaigo.Runtime.Camera
 		[SerializeField]
 		private CameraSetting _camSetting = null;
 		[SerializeField]
-		private TimerHandler _timerHandler = null;
+		private TimerHandler _timerCamTransitionHandler = null;
 
 		private bool _isInitialized = false;
 
-		internal void Init (ITransform camTargetTransform)
+		internal void Init (ITransform camTargetTransform, IFocusedObject focusedObject)
 		{
 			DebugInit ();
 
@@ -47,13 +49,15 @@ namespace Kaigo.Runtime.Camera
 				PitchTransform = _pitchTransform,
 				DCInputAxis = _inputHandler.DCInputAxis,
 				TPInputAxis = _inputHandler.TPInputAxis,
+				FocusedObject = focusedObject,
 				DCMoveSetting = _camSetting.DungeonCrawler,
 				TPMoveSetting = _camSetting.ThirdPerson,
 				DCTransitionSetting = _camSetting,
 				TPTransitionSetting = _camSetting,
-				Timer = _timerHandler
+				FocusSetting = _camSetting,
+				TimerCamTransition = _timerCamTransitionHandler
 			});
-			_timerHandler.Init (this);
+			_timerCamTransitionHandler.Init (this);
 
 			_selectHandler.OnSelectCameraTriggered += _inputHandler.OnSelectCamera;
 			_selectHandler.OnSelectCameraTriggered += _moveHandler.OnSelectCamera;
@@ -74,7 +78,7 @@ namespace Kaigo.Runtime.Camera
 			if (!_isInitialized)
 				return;
 
-			_timerHandler.OnUpdate ();
+			_timerCamTransitionHandler.HandleUpdate ();
 		}
 
 		private void LateUpdate ()
@@ -82,7 +86,7 @@ namespace Kaigo.Runtime.Camera
 			if (!_isInitialized)
 				return;
 
-			_moveHandler.OnLateUpdate ();
+			_moveHandler.HandleLateUpdate ();
 		}
 	}
 }

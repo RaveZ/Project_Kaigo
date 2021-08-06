@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38fe9118fcb57e242be46d6fadd98ab4, type: 3}
   m_Name: CameraSetting
   m_EditorClassIdentifier: 
-  <TransitionTime>k__BackingField: 2
+  <TimeCamTransition>k__BackingField: 0.2
+  <TimeLockTransition>k__BackingField: 0.2
   <InterpolationType>k__BackingField: 3
+  <FocusSmooth>k__BackingField: 0.05
+  <DiffLimitToSmooth>k__BackingField: 3
   <DungeonCrawler>k__BackingField:
     <MoveSpeed>k__BackingField: 0.2
     <LookSpeed>k__BackingField: 0.2

@@ -1,11 +1,7 @@
-using UnityEngine;
-using Z.Timer.Runtime;
-using Z.UnityHelper.TransformUtil;
-
 namespace Kaigo.Runtime.Camera
 {
-	internal partial class CameraController : MonoBehaviour, ICameraTransform, ITimerLimit
+	internal partial class CameraController
 	{
-		public float TimeLimit => _camSetting.TransitionTime;
+		public float TimeLimit => _camSetting.TimeCamTransition;
 	}
 }

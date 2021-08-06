@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Kaigo.Runtime.Camera.Selection
 {
-	internal partial class SelectionHandler : MonoBehaviour, ICameraSelection
+	internal partial class SelectionHandler : MonoBehaviour
 	{
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 		internal void DebugSelectNextCamera ()

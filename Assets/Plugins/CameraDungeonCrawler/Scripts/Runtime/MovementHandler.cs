@@ -1,7 +1,6 @@
 using UnityEngine;
 using Z.Ease;
 using Z.Timer.Runtime;
-using Z.UnityHelper.Input;
 using Z.UnityHelper.TransformUtil;
 
 namespace Z.CameraDungeonCrawler.Runtime
@@ -15,7 +14,7 @@ namespace Z.CameraDungeonCrawler.Runtime
 		private IInputAxis _inputAxis = null;
 		private IMovementSetting _moveSetting = null;
 		private ITransitionSetting _transitionSetting = null;
-		private ITimer _timer = null;
+		private ITimer _timerCamTransition = null;
 
 		private bool _isTargetValid = false;
 		private Vector3 _camVelocity = default;
@@ -27,18 +26,17 @@ namespace Z.CameraDungeonCrawler.Runtime
 		private float _transitionYawAngle = 0f;
 		private float _transitionTargetYawAngle = 0f;
 
-		public float TimeLimit => _transitionSetting.Time;
+		public float TimeLimit => _transitionSetting.TimeCamTransition;
 
 		public void Init (IMovementHandlerInitialPayload initialPayload)
 		{
-
 			_camTransform = initialPayload.CamTransform;
 			_pitchTransform = initialPayload.PitchTransform;
 			_inputAxis = initialPayload.InputAxis;
 			_camTargetTransform = initialPayload.CamTargetTransform;
 			_moveSetting = initialPayload.MoveSetting;
 			_transitionSetting = initialPayload.TransitionSetting;
-			_timer = initialPayload.Timer;
+			_timerCamTransition = initialPayload.TimerCamTransition;
 
 			_isTargetValid = _camTargetTransform != null;
 
@@ -59,10 +57,10 @@ namespace Z.CameraDungeonCrawler.Runtime
 			_transitionYawAngle = transform.eulerAngles.y;
 			_transitionTargetYawAngle = _yawAngle;
 
-			_timer.Restart ();
+			_timerCamTransition.Restart ();
 		}
 
-		public void OnLateUpdate ()
+		public void HandleLateUpdate ()
 		{
 			if (!_isTargetValid)
 				return;
@@ -76,9 +74,9 @@ namespace Z.CameraDungeonCrawler.Runtime
 			float offsetY;
 			float offsetZ;
 
-			if (_timer.IsTicking)
+			if (_timerCamTransition.IsTicking)
 			{
-				float t = EaseCalculator.GetCalculatedAlpha (_timer.TickNormalized, _transitionSetting.InterpolationType);
+				float t = EaseCalculator.GetCalculatedAlpha (_timerCamTransition.TickNormalized, _transitionSetting.InterpolationType);
 				offsetY = Mathf.Lerp (_transitionOffsetY, _moveSetting.CamOffsetY, t);
 				offsetZ = Mathf.Lerp (_transitionOffsetZ, _moveSetting.CamOffsetZ, t);
 			}
@@ -101,9 +99,9 @@ namespace Z.CameraDungeonCrawler.Runtime
 			Vector3 eul;
 			Quaternion targetRot;
 
-			if (_timer.IsTicking)
+			if (_timerCamTransition.IsTicking)
 			{
-				float t = EaseCalculator.GetCalculatedAlpha (_timer.TickNormalized, _transitionSetting.InterpolationType);
+				float t = EaseCalculator.GetCalculatedAlpha (_timerCamTransition.TickNormalized, _transitionSetting.InterpolationType);
 				Quaternion from = Quaternion.Euler (_transitionPitchAngle, _transitionYawAngle, 0f);
 				Quaternion to = Quaternion.Euler (_moveSetting.CamPitchAngle, _transitionTargetYawAngle, 0f);
 				Vector3 transitionEul = Quaternion.Slerp (from, to, t).eulerAngles;

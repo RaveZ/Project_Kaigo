@@ -1,11 +1,9 @@
-using UnityEngine;
-
 namespace Kaigo.Runtime.Camera.Movement
 {
 	using DCMovementHandler = Z.CameraDungeonCrawler.Runtime.MovementHandler;
 	using TPMovementHandler = Z.CameraThirdPerson.Runtime.MovementHandler;
 
-	internal partial class MovementHandler : MonoBehaviour
+	internal partial class MovementHandler
 	{
 #if UNITY_EDITOR
 		private void OnValidate ()

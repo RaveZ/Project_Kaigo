@@ -16,3 +16,9 @@ MonoBehaviour:
   <TurnSmoothTime>k__BackingField: 0.1
   <GravityScale>k__BackingField: 1
   <IsCamRelative>k__BackingField: 1
+  <AllocationCount>k__BackingField: 10
+  <Radius>k__BackingField: 20
+  <Layer>k__BackingField:
+    serializedVersion: 2
+    m_Bits: 128
+  <TriggerInteraction>k__BackingField: 2

@@ -22,7 +22,7 @@ namespace Z.Timer.Runtime
 			TickNormalized = 0f;
 		}
 
-		public void OnUpdate ()
+		public void HandleUpdate ()
 		{
 			if (Tick >= _limit.TimeLimit)
 				return;

@@ -34,7 +34,7 @@ namespace Kaigo.Runtime.Character.Input
 			_navAgent.updateRotation = false;
 			_navAgent.destination = _controlledObj.transform.position;
 
-			_sensEyeHandler.Init (initialPayload.AISetting.EyeSetting, initialPayload.AIStat.EyeStat, this, AppController.CT);
+			_sensEyeHandler.Init (initialPayload.AISetting.EyeSetting, initialPayload.AIStat.EyeStat, AppController.CT);
 			_brainHandler.Init (_controlledObj, initialPayload.AISetting, initialPayload.AIStat, this);
 
 			_sensEyeHandler.OnTargetDetectedTriggered += HandleTargetDetected;
@@ -44,10 +44,10 @@ namespace Kaigo.Runtime.Character.Input
 			initialPayload.Dispose ();
 		}
 
-		internal override void OnUpdate ()
+		internal override void HandleUpdate ()
 		{
-			_sensEyeHandler.OnUpdate ();
-			_brainHandler.OnUpdate ();
+			_sensEyeHandler.HandleUpdate ();
+			_brainHandler.HandleUpdate ();
 			CalculateInputAxisFromNavAgent ();
 		}
 

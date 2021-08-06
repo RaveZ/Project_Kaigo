@@ -1,8 +1,6 @@
-using UnityEngine;
-
 namespace Kaigo.Runtime.Camera.Input
 {
-	internal partial class UserInputHandler : MonoBehaviour
+	internal partial class UserInputHandler
 	{
 #if UNITY_EDITOR
 		private void OnValidate ()

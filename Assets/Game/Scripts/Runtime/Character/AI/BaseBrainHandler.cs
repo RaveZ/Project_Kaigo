@@ -40,13 +40,14 @@ namespace Kaigo.Runtime.Character.AI
 			Blackboard = blackboard;
 
 			InitBrain ();
+			DebugInitBrain ();
 		}
 
 		protected abstract void InitBrain ();
 
-		internal virtual void OnUpdate ()
+		internal virtual void HandleUpdate ()
 		{
-			Timer.OnUpdate ();
+			Timer.HandleUpdate ();
 			if (Timer.IsTicking)
 				return;
 

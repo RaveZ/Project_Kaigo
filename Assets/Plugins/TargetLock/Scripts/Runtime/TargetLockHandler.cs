@@ -1,60 +1,69 @@
-using Z.Collections;
 using UnityEngine;
-using System.Collections.Generic;
+using UnityEngine.Assertions;
+using Z.UnityHelper.TransformUtil;
 
 namespace Z.TargetLock.Runtime
 {
-    public class TargetLockHandler : MonoBehaviour
-    {
-        public List<GameObject> Targets = new List<GameObject>();
-        bool enterBattle;
-        public LayerMask TargetLayer;
-       /* public LayerMask enemyLayers;
-        int numColliders;
-        int maxColliders = 100;
-        public Collider[] EnemyColliders;
-        void UpdateTarget(Vector3 center, float radius)
-        {
-            EnemyColliders = new Collider[maxColliders];
-            numColliders = Physics.OverlapSphereNonAlloc(
-                         transform.position,
-                         radius,
-                         EnemyColliders,
-                         enemyLayers
-                       );
-            *//*for(int i = 0; i < numColliders; i++)
-            {
-                Target.Add();
-            }*//*
-            Target = new List<Collider>(EnemyColliders);
-        }*/
-        void Start()
-        {
+	public class TargetLockHandler : MonoBehaviour, ITargetedObject
+	{
+		private ITargetLockSetting _lockSetting = null;
+		private ITransform _ownerTransform = null;
 
-        }
+		private Collider [] _colliders = null;
 
+		public bool IsInitialized { get; private set; } = false;
 
-        //trigger if enemy get on the field
-        void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.layer == TargetLayer)
-            {
-                Targets.Add(other.gameObject);
-                enterBattle = true;
-            }
-        }
+		public ITransform Target { get; private set; } = null;
 
-        void OnTriggerExit(Collider other)
-        {
-            if (other.gameObject.layer == TargetLayer)
-            {
-                Targets.Remove(other.gameObject);
-                if (Targets.Count == 0)
-                {
-                    enterBattle = false;
-                }
-            }
-        }
-    }
+		public void Init (ITargetLockSetting lockSetting, ITransform ownerTransform)
+		{
+			_lockSetting = lockSetting;
+			_ownerTransform = ownerTransform;
+
+			_colliders = new Collider [_lockSetting.AllocationCount];
+
+			IsInitialized = true;
+		}
+
+		public void ActivateTargetLock ()
+		{
+			Assert.IsTrue (IsInitialized);
+			HandleTargetLock ();
+		}
+
+		public void DeactivateTargetLock ()
+		{
+			Assert.IsTrue (IsInitialized);
+			Target = null;
+		}
+
+		private void HandleTargetLock ()
+		{
+			if (Target != null)
+				return;
+
+			int overlappedCount = Physics.OverlapSphereNonAlloc (
+				_ownerTransform.Position,
+				_lockSetting.Radius,
+				_colliders,
+				_lockSetting.Layer,
+				_lockSetting.TriggerInteraction);
+
+			if (overlappedCount == 0)
+				return;
+
+			for (int i = 0; i < overlappedCount; ++i)
+			{
+				// ignore self
+				if (_colliders [i].gameObject.GetInstanceID () == gameObject.GetInstanceID ())
+					continue;
+
+				if (_colliders [i].TryGetComponent (out ITargetable target))
+				{
+					Target = target;
+					break;
+				}
+			}
+		}
+	}
 }
-

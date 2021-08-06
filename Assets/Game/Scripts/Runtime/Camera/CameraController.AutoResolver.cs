@@ -1,15 +1,13 @@
 using Kaigo.Runtime.Camera.Input;
 using Kaigo.Runtime.Camera.Movement;
 using Kaigo.Runtime.Camera.Selection;
-using UnityEngine;
 using Z.Timer.Runtime;
-using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Camera
 {
 	using UCamera = UnityEngine.Camera;
 
-	internal partial class CameraController : MonoBehaviour, ICameraTransform, ITimerLimit
+	internal partial class CameraController
 	{
 #if UNITY_EDITOR
 		private void OnValidate ()
@@ -28,8 +26,8 @@ namespace Kaigo.Runtime.Camera
 				_inputHandler = GetComponent<UserInputHandler> ();
 			if (_moveHandler == null)
 				_moveHandler = GetComponent<MovementHandler> ();
-			if (_timerHandler == null)
-				_timerHandler = GetComponent<TimerHandler> ();
+			if (_timerCamTransitionHandler == null)
+				_timerCamTransitionHandler = GetComponent<TimerHandler> ();
 		}
 #endif
 	}

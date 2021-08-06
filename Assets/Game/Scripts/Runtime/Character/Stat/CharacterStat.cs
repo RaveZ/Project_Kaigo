@@ -10,7 +10,8 @@ namespace Kaigo.Runtime.Character.Stat
 #endif
 		private InitialCharacterStat _initialStat = null;
 
-		public float MoveSpeed { get; private set; } = 0f;
+		public float MoveForwardSpeed { get; private set; } = 0f;
+		public float MoveBackwardSpeed { get; private set; } = 0f;
 
 		[ContextMenu ("Reset Stat")]
 		private void Init ()
@@ -18,7 +19,8 @@ namespace Kaigo.Runtime.Character.Stat
 			//Strength = _initialStatAttribute.Strength;
 			//Agility = _initialStatAttribute.Agility;
 			//Inteligence = _initialStatAttribute.Inteligence;
-			MoveSpeed = _initialStat.MoveSpeed;
+			MoveForwardSpeed = _initialStat.MoveForwardSpeed;
+			MoveBackwardSpeed = _initialStat.MoveBackwardSpeed;
 			//HealthPoint = _initialStatAttribute.HealthPoint;
 
 			//EyeSensorUpdateInterval = _initialStatAttribute.EyeSensorUpdateInterval;

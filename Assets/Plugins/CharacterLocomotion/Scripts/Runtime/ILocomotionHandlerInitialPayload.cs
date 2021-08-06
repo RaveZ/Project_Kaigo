@@ -1,5 +1,4 @@
 using System;
-using Z.UnityHelper.Input;
 using Z.UnityHelper.TransformUtil;
 
 namespace Z.CharacterLocomotion.Runtime
@@ -11,7 +10,7 @@ namespace Z.CharacterLocomotion.Runtime
 		UCharacterController UCharController { get; }
 		ICameraTransform CamTransform { get; }
 		IInputAxis InputAxis { get; }
-		IInputLockOn InputLockOn { get; }
+		IFocusedObject FocusedObject { get; }
 		ILocomotionStat Stat { get; }
 		ILocomotionSetting LocoSetting { get; }
 		bool IsCamRelative { get; }

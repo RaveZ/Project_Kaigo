@@ -1,12 +1,10 @@
 using System.Diagnostics;
-using UnityEngine;
-using Z.UnityHelper.Input;
 
 namespace Kaigo.Runtime.Camera.Input
 {
 	using static UnityEngine.InputSystem.InputAction;
 
-	internal partial class ThirdPersonInputHandler : MonoBehaviour, IInputAxis
+	internal partial class ThirdPersonInputHandler
 	{
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 		private Generated.Input.Debug.DebugCameraThirdPersonInput _debugCameraThirdPersonInput = null;

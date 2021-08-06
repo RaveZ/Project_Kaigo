@@ -4,7 +4,7 @@ using Z.CameraThirdPerson.Runtime;
 
 namespace Kaigo.Runtime.Camera.Setting
 {
-	internal partial class CameraSetting : ScriptableObject
+	internal partial class CameraSetting
 	{
 		[Serializable]
 		internal class ThirdPersonSetting : IMovementSetting

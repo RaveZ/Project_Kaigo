@@ -1,11 +1,9 @@
 using System.Diagnostics;
 using UnityEngine;
-using Z.Timer.Runtime;
-using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Camera
 {
-	internal partial class CameraController : MonoBehaviour, ICameraTransform, ITimerLimit
+	internal partial class CameraController
 	{
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 		[Header ("Editor Only")]
@@ -17,7 +15,7 @@ namespace Kaigo.Runtime.Camera
 			await AppController.WaitTillReady ();
 
 			if (_useAwakeToInit)
-				Init (null);
+				Init (null, null);
 		}
 #endif
 

@@ -1,11 +1,10 @@
 using System.Diagnostics;
-using UnityEngine;
 
 namespace Kaigo.Runtime.Camera.Input
 {
 	using static UnityEngine.InputSystem.InputAction;
 
-	internal partial class UserInputHandler : MonoBehaviour
+	internal partial class UserInputHandler
 	{
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
 		internal delegate void DebugSelectNextCameraAction ();

@@ -1,12 +1,11 @@
 using Kaigo.Runtime.Camera;
-using UnityEngine;
 using Z.SmoothUpdate.Runtime;
 
 namespace Kaigo.Development.Level.DevCharacter
 {
 	using KaigoCharacterController = Runtime.Character.CharacterController;
 
-	internal partial class DevCharacterController : MonoBehaviour
+	internal partial class DevCharacterController
 	{
 #if UNITY_EDITOR
 		private void OnValidate ()

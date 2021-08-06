@@ -4,7 +4,7 @@ using Z.SensorEye.Runtime;
 
 namespace Kaigo.Runtime.Character.AI.Stat
 {
-	internal partial class AIStat : ScriptableObject, IAIStat
+	internal partial class AIStat : ScriptableObject
 	{
 		[Serializable]
 		internal class SensorEyeStat : ISensorEyeStat
