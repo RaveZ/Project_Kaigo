@@ -20,6 +20,8 @@ namespace Kaigo.Runtime.Character.Setting
 		public LayerMask Layer => _initialCharSetting.Layer;
 		public QueryTriggerInteraction TriggerInteraction => _initialCharSetting.TriggerInteraction;
 
+		public float MoveDampTime => _initialCharSetting.MoveDampTime;
+
 		public bool IsCamRelative { get; private set; } = false;
 
 		private void Init (bool isCamRelative)

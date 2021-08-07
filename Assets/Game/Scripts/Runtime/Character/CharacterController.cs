@@ -115,7 +115,7 @@ namespace Kaigo.Runtime.Character
 				Stat = _stat,
 				UCharController = _ucharController
 			});
-			_animHandler.Init (_anim, _locoHandler, _stat);
+			_animHandler.Init (_anim, _locoHandler, _stat, _charSetting);
 			_animEventHandler.Init (_anim);
 
 			_inputHandler.OnActivateTargetLockTriggerd += _lockHandler.ActivateTargetLock;

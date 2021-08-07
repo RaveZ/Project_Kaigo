@@ -15,8 +15,9 @@ MonoBehaviour:
   <TimeCamTransition>k__BackingField: 0.2
   <TimeLockTransition>k__BackingField: 0.2
   <InterpolationType>k__BackingField: 3
-  <FocusSmooth>k__BackingField: 0.05
+  <FocusSmooth>k__BackingField: 0.025
   <DiffLimitToSmooth>k__BackingField: 3
+  <PitchOffset>k__BackingField: 1.5
   <DungeonCrawler>k__BackingField:
     <MoveSpeed>k__BackingField: 0.2
     <LookSpeed>k__BackingField: 0.2

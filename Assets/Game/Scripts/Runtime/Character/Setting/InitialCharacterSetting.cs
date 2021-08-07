@@ -29,5 +29,10 @@ namespace Kaigo.Runtime.Character.Setting
 		public LayerMask Layer { get; private set; } = default;
 		[field: SerializeField]
 		public QueryTriggerInteraction TriggerInteraction { get; private set; } = QueryTriggerInteraction.Ignore;
+
+		[field: Header ("Animation")]
+		[field: SerializeField]
+		[field: Range (0f, 1f)]
+		public float MoveDampTime { get; private set; } = 0.1f;
 	}
 }

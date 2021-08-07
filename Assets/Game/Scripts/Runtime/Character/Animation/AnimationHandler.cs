@@ -13,22 +13,24 @@ namespace Kaigo.Runtime.Character.Animation
 		private Animator _anim = null;
 		private ILocomotion _loco = null;
 		private ICharacterStat _stat = null;
+		private IAnimationSetting _animSetting = null;
 
 		private float _prevVelX = 0f;
 
-		internal void Init (Animator anim, ILocomotion loco, ICharacterStat stat)
+		internal void Init (Animator anim, ILocomotion loco, ICharacterStat stat, IAnimationSetting animSetting)
 		{
 			_anim = anim;
 			_loco = loco;
 			_stat = stat;
+			_animSetting = animSetting;
 		}
 
 		internal void HandleUpdate ()
 		{
 			if (_loco.HasTargetLocked)
 			{
-				_anim.SetFloat (_paramVelocityXID, _loco.MoveVelocity.x / _stat.MoveForwardSpeed);
-				_anim.SetFloat (_paramVelocityZID, _loco.MoveVelocity.z / _stat.MoveForwardSpeed);
+				_anim.SetFloat (_paramVelocityXID, _loco.MoveVelocity.x / _stat.MoveForwardSpeed, _animSetting.MoveDampTime, Time.deltaTime);
+				_anim.SetFloat (_paramVelocityZID, _loco.MoveVelocity.z / _stat.MoveForwardSpeed, _animSetting.MoveDampTime, Time.deltaTime);
 				_prevVelX = _loco.MoveVelocity.x;
 			}
 			else
@@ -36,7 +38,7 @@ namespace Kaigo.Runtime.Character.Animation
 				if (_prevVelX != 0f)
 					_prevVelX = 0f;
 
-				_anim.SetFloat (_paramVelocityZID, _loco.MoveSpeed / _stat.MoveForwardSpeed);
+				_anim.SetFloat (_paramVelocityZID, _loco.MoveSpeed / _stat.MoveForwardSpeed, _animSetting.MoveDampTime, Time.deltaTime);
 			}
 		}
 	}
