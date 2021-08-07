@@ -4,6 +4,7 @@ using Kaigo.Runtime.Camera.Setting;
 using UnityEngine;
 using Z.CameraThirdPerson.Runtime;
 using Z.Timer.Runtime;
+using Z.UnityHelper.Extension;
 using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Camera
@@ -16,7 +17,7 @@ namespace Kaigo.Runtime.Camera
 	[DisallowMultipleComponent]
 	[RequireComponent (typeof (SelectionHandler), typeof (UserInputHandler), typeof (MovementHandler))]
 	[RequireComponent (typeof (TimerHandler))]
-	internal partial class CameraController : MonoBehaviour, ICameraTransform, ITimerLimit
+	internal partial class CameraController : MonoBehaviour, ICameraTransform, ITimerLimit, ICamera
 	{
 		[Header ("References")]
 		[SerializeField]
@@ -87,6 +88,16 @@ namespace Kaigo.Runtime.Camera
 				return;
 
 			_moveHandler.HandleLateUpdate ();
+		}
+
+		public bool IsRendered (Renderer renderer)
+		{
+			return _mainCam.IsRendered (renderer);
+		}
+
+		public bool IsRendered (Bounds bounds)
+		{
+			return _mainCam.IsRendered (bounds);
 		}
 	}
 }

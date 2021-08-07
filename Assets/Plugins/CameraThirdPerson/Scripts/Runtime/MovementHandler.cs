@@ -127,9 +127,7 @@ namespace Z.CameraThirdPerson.Runtime
 				if (HasTargetLocked)
 				{
 					float prev = _pitchAngle;
-					Vector3 targetPos = new Vector3 (0f, _focusedObject.Target.Position.y, 0f);
-					Vector3 pos = new Vector3 (0f, transform.position.y, 0f);
-					Vector3 dirPitch = (_focusedObject.Target.Position - transform.position).normalized;
+					Vector3 dirPitch = (_focusedObject.Target.Position - (transform.position + (_focusSetting.PitchOffset * Vector3.up))).normalized;
 					Vector3 forwardPitch = Vector3.ProjectOnPlane (dirPitch, Vector3.up).normalized;
 
 					float targetPitch = Vector3.SignedAngle (forwardPitch, dirPitch, _camTargetTransform.Right);
@@ -137,14 +135,14 @@ namespace Z.CameraThirdPerson.Runtime
 					if (pitchDiff < _focusSetting.DiffLimitToSmooth)
 						_pitchAngle = targetPitch;
 					else
-						_pitchAngle = Mathf.Lerp (_pitchAngle, targetPitch, _focusSetting.FocusSmooth);
+						_pitchAngle = Quaternion.Slerp (Quaternion.Euler (_pitchAngle, 0f, 0f), Quaternion.Euler (targetPitch, 0f, 0f), _focusSetting.FocusSmooth).eulerAngles.x;
 
 					float targetYaw = _camTargetTransform.Yaw;
 					float yawDiff = Mathf.Abs (_yawAngle - targetYaw);
 					if (yawDiff < _focusSetting.DiffLimitToSmooth)
 						_yawAngle = targetYaw;
 					else
-						_yawAngle = Mathf.Lerp (_yawAngle, _camTargetTransform.Yaw, _focusSetting.FocusSmooth);
+						_yawAngle = Quaternion.Slerp (Quaternion.Euler (0f, _yawAngle, 0f), Quaternion.Euler (0f, _camTargetTransform.Yaw, 0f), _focusSetting.FocusSmooth).eulerAngles.y;
 				}
 				else
 				{

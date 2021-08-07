@@ -11,6 +11,8 @@ namespace Kaigo.Runtime.Character
 		[Header ("Editor Only")]
 		[SerializeField]
 		private bool _useAwakeToInit = false;
+		[SerializeField]
+		private bool _drawBounds = false;
 
 		[SerializeField]
 		private BehaviorTree _debugBTree = null;
@@ -26,7 +28,6 @@ namespace Kaigo.Runtime.Character
 		[Conditional ("UNITY_EDITOR"), Conditional ("DEVELOPMENT_BUILD")]
 		private void DebugInitInput (bool isInputFromUser)
 		{
-			UnityEngine.Debug.Log (isInputFromUser);
 			if (!isInputFromUser)
 				_debugBTree = ((AIInputHandler) _inputHandler).DebugBTree;
 		}

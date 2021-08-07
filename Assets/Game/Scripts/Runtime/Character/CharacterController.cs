@@ -1,3 +1,4 @@
+using Kaigo.Runtime.Camera;
 using Kaigo.Runtime.Character.AI;
 using Kaigo.Runtime.Character.Animation;
 using Kaigo.Runtime.Character.Input;
@@ -45,15 +46,21 @@ namespace Kaigo.Runtime.Character
 		private AnimationEventHandler _animEventHandler = null;
 		[SerializeField]
 		private NoInputHandler _noInputHandler = null;
+		[SerializeField]
+		private Renderer [] _renderers = null;
 
 		private BaseInputHandler _inputHandler = null;
 		private ICameraTransform _camTransform = null;
+		private ICamera _cam = null;
 
 		private bool _isInitialized = false;
 
-		internal void Init (CharacterPreset charPreset, ICameraTransform camTransform)
+		internal bool IsInputFromUser { get; private set; } = false;
+
+		internal void Init (CharacterPreset charPreset, ICameraTransform camTransform, ICamera cam)
 		{
 			_camTransform = camTransform;
+			_cam = cam;
 
 			Init (charPreset);
 		}
@@ -63,11 +70,11 @@ namespace Kaigo.Runtime.Character
 			if (charPreset != null)
 			{
 				_inputHandler = (BaseInputHandler) ScriptableObject.CreateInstance (charPreset.InputHandler.GetType ());
-				bool isInputFromUser = typeof (UserInputHandler).IsAssignableFrom (_inputHandler.GetType ());
+				IsInputFromUser = typeof (UserInputHandler).IsAssignableFrom (_inputHandler.GetType ());
 
-				_charSetting.Init (isInputFromUser, charPreset.InitialSetting);
+				_charSetting.Init (IsInputFromUser, charPreset.InitialSetting);
 
-				if (isInputFromUser)
+				if (IsInputFromUser)
 					((UserInputHandler) _inputHandler).Init ();
 				else
 					((AIInputHandler) _inputHandler).Init (new AIInputHandlerInitialPayload
@@ -82,7 +89,7 @@ namespace Kaigo.Runtime.Character
 
 				_stat.Init (charPreset.InitialStat);
 
-				DebugInitInput (isInputFromUser);
+				DebugInitInput (IsInputFromUser);
 			}
 			else
 			{
@@ -117,6 +124,13 @@ namespace Kaigo.Runtime.Character
 			_isInitialized = true;
 		}
 
+		private void OnDestroy ()
+		{
+			_inputHandler = null;
+			_camTransform = null;
+			_cam = null;
+		}
+
 		private void FixedUpdate ()
 		{
 			if (!_isInitialized)
@@ -132,6 +146,27 @@ namespace Kaigo.Runtime.Character
 
 			_inputHandler.HandleUpdate ();
 			_animHandler.HandleUpdate ();
+		}
+
+		private Bounds GetBounds ()
+		{
+			bool isBoundsInitialized = false;
+			Bounds bounds = new Bounds ();
+			foreach (Renderer renderer in _renderers)
+			{
+				if (!renderer.enabled)
+					continue;
+
+				if (isBoundsInitialized)
+					bounds.Encapsulate (renderer.bounds);
+				else
+				{
+					isBoundsInitialized = true;
+					bounds = renderer.bounds;
+				}
+			}
+
+			return bounds;
 		}
 	}
 }

@@ -56,10 +56,19 @@ namespace Z.TargetLock.Runtime
 			{
 				// ignore self
 				if (_colliders [i].gameObject.GetInstanceID () == gameObject.GetInstanceID ())
+				{
+					_colliders [i] = null;
 					continue;
+				}
 
 				if (_colliders [i].TryGetComponent (out ITargetable target))
 				{
+					if (!target.CanBeLock)
+					{
+						_colliders [i] = null;
+						continue;
+					}
+
 					Target = target;
 					break;
 				}

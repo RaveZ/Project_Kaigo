@@ -39,8 +39,8 @@ namespace Kaigo.Development.Level.DevCharacter
 		internal void Init ()
 		{
 			_smoothUpdateController.Init ();
-			_charController.Init (_charPreset, _camController);
-			_charController2.Init (_char2Preset, _camController);
+			_charController.Init (_charPreset, _camController, _camController);
+			_charController2.Init (_char2Preset, _camController, _camController);
 			_camController.Init (_charController2, _charController2);
 
 			_smoothUpdateController.AddSmoothedUpdateHandler (_charController.SmoothUpdtHandler);

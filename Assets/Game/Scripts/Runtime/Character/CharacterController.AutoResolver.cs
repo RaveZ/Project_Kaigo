@@ -38,6 +38,8 @@ namespace Kaigo.Runtime.Character
 				_lockHandler = GetComponent<TargetLockHandler> ();
 			if (_animEventHandler == null)
 				_animEventHandler = GetComponentInChildren<AnimationEventHandler> ();
+			if (_renderers == null || _renderers.Length == 0)
+				_renderers = GetComponentsInChildren<Renderer> ();
 		}
 #endif
 	}

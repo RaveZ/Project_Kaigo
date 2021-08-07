@@ -27,6 +27,8 @@ namespace Kaigo.Runtime.Camera.Setting
 		[field: SerializeField]
 		[field: Min (0f)]
 		public float DiffLimitToSmooth { get; private set; } = 2f;
+		[field: SerializeField]
+		public float PitchOffset { get; private set; } = 1f;
 
 		[field: Header ("Movement")]
 		[field: SerializeField]
