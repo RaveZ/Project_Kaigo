@@ -13,13 +13,25 @@ namespace Kaigo.Runtime.Character.AI
 			return TaskStatus.Success;
 		}
 
-		protected TaskStatus MustInTargetRadius (ITask childTask)
+		protected TaskStatus NotInTargetRadius (ITask childTask)
 		{
-			if (InDestArea (Blackboard.Target.transform.position))
+			if (InObserveArea ())
 				return TaskStatus.Failure;
+
 
 			childTask.Update ();
 			return TaskStatus.Success;
 		}
+
+		protected TaskStatus InTargetRadius(ITask childTask)
+		{
+			if (InObserveArea())
+				childTask.Update();
+
+			
+			return TaskStatus.Success;
+            
+		}
+			
 	}
 }

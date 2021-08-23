@@ -74,9 +74,11 @@ namespace Kaigo.Runtime.Character.Input
 				Target = null;
 		}
 
+
 		private NavMeshPathStatus HandleGetPathStatus ()
 		{
 			return _navAgent.pathStatus;
 		}
+
 	}
 }

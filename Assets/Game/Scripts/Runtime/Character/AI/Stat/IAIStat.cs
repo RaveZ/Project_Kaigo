@@ -6,5 +6,6 @@ namespace Kaigo.Runtime.Character.AI.Stat
 	{
 		ISensorEyeStat EyeStat { get; }
 		float IdleTime { get; }
+		float AttackTimer { get; }
 	}
 }

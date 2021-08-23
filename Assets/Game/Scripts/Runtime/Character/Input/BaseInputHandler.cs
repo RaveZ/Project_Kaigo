@@ -19,6 +19,7 @@ namespace Kaigo.Runtime.Character.Input
 
 		public bool IsInitialized { get; protected set; } = false;
 		public bool IsSprinting { get; protected set; } = false;
+		public bool CanAttack { get; protected set; } = false;
 		public float Horizontal { get; protected set; } = 0f;
 		public float Vertical { get; protected set; } = 0f;
 

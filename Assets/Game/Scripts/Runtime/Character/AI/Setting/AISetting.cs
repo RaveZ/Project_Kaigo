@@ -13,7 +13,9 @@ namespace Kaigo.Runtime.Character.AI.Setting
 		[field: SerializeField]
 		[field: Min (0f)]
 		public float StoppingDistance { get; private set; } = 1f;
-
+		[field: SerializeField]
+		[field: Min(0f)]
+		public float ObserveStoppingDistance { get; private set; } = 4f;
 		[Header ("Sensor Eye Setting")]
 		[SerializeField]
 		private SensorEyeSetting _eyeSetting = null;

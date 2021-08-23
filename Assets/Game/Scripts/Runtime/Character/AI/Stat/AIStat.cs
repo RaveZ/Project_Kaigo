@@ -10,6 +10,9 @@ namespace Kaigo.Runtime.Character.AI.Stat
 		[field: Header ("General Stat")]
 		[field: SerializeField]
 		public float IdleTime { get; private set; } = 3f;
+		[field: Header("General Stat")]
+		[field: SerializeField]
+		public float AttackTimer { get; private set; } = 3f;
 
 		[Header ("Sensor Eye Stat")]
 		[SerializeField]

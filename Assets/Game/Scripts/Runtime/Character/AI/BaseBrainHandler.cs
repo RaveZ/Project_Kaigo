@@ -11,7 +11,6 @@ namespace Kaigo.Runtime.Character.AI
 	{
 		internal delegate void MoveToAction (Vector3 destination);
 		internal delegate NavMeshPathStatus GetPathStatusAction ();
-
 		internal event MoveToAction OnMoveToTriggered = null;
 		internal event GetPathStatusAction OnGetPathStatusTriggered = null;
 
@@ -22,6 +21,7 @@ namespace Kaigo.Runtime.Character.AI
 
 		protected TimerHandler Timer = null;
 
+		
 		protected GameObject ControlledObj = null;
 		protected IAISetting Setting = null;
 		protected IAIStat Stat = null;
@@ -53,6 +53,7 @@ namespace Kaigo.Runtime.Character.AI
 
 			BTree.Tick ();
 		}
+
 
 		protected void MoveTo (Vector3 destination)
 		{

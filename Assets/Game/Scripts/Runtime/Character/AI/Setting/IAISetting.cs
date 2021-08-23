@@ -6,6 +6,7 @@ namespace Kaigo.Runtime.Character.AI.Setting
 	{
 		ISensorEyeSetting EyeSetting { get; }
 		float StoppingDistance { get; }
+		float ObserveStoppingDistance { get; }
 		float WaitTimeForRecalculatePath { get; }
 	}
 }

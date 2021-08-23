@@ -27,6 +27,12 @@ namespace Kaigo.Runtime.Character.AI
 			return Wait (Stat.IdleTime);
 		}
 
+		protected TaskStatus WaitAttack()
+        {
+			return Wait(Stat.AttackTimer);
+		}
+		
+
 		protected TaskStatus WaitToRecalculatePathToTarget ()
 		{
 			return Wait (Setting.WaitTimeForRecalculatePath);
@@ -35,6 +41,11 @@ namespace Kaigo.Runtime.Character.AI
 		protected TaskStatus WaitTillArriveAtSpawnArea ()
 		{
 			return WaitTillArriveAtDestination (Blackboard.SpawnPosition);
+		}
+
+		protected TaskStatus WaitTillArriveAtTargetArea()
+		{
+			return WaitTillArriveAtDestination(Blackboard.Target.transform.position);
 		}
 
 		protected TaskStatus WaitTillArriveAtDestination (Vector3 destination)
@@ -48,6 +59,12 @@ namespace Kaigo.Runtime.Character.AI
 			return TaskStatus.Success;
 		}
 
+		protected TaskStatus StopAgent()
+		{
+			MoveTo(ControlledObj.transform.position);
+			return TaskStatus.Success;
+		}
+
 		protected TaskStatus Wait (float time)
 		{
 			TimeLimit = time;
@@ -55,5 +72,9 @@ namespace Kaigo.Runtime.Character.AI
 
 			return TaskStatus.Success;
 		}
+
+		
+
+		
 	}
 }
