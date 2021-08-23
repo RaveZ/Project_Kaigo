@@ -1,5 +1,6 @@
 using UnityEngine;
 using Z.UnityHelper.TransformUtil;
+using Z.CharacterDefense.Runtime;
 
 namespace Z.CharacterLocomotion.Runtime
 {
@@ -11,6 +12,7 @@ namespace Z.CharacterLocomotion.Runtime
 		private UCharacterController _ucharController = null;
 		private ICameraTransform _camTransform = null;
 		private IInputAxis _inputAxis = null;
+		private IDefenseInput _defenseInput = null;
 		private IFocusedObject _focusedObject = null;
 		private ILocomotionStat _stat = null;
 		private ILocomotionSetting _locoSetting = null;
@@ -37,6 +39,7 @@ namespace Z.CharacterLocomotion.Runtime
 			_ucharController = initialPayload.UCharController;
 			_camTransform = initialPayload.CamTransform;
 			_inputAxis = initialPayload.InputAxis;
+			_defenseInput = initialPayload.defenseInput;
 			_focusedObject = initialPayload.FocusedObject;
 			_stat = initialPayload.Stat;
 			_locoSetting = initialPayload.LocoSetting;
@@ -46,6 +49,8 @@ namespace Z.CharacterLocomotion.Runtime
 
 		public void HandleFixedUpdate ()
 		{
+			if (_defenseInput.isDefense)
+				return;
 			if (HasTargetLocked)
 			{
 				UpdateLocomotion ();

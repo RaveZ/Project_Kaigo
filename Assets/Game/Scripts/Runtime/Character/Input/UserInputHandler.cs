@@ -19,6 +19,8 @@ namespace Kaigo.Runtime.Character.Input
 			_charInput.Game.Sprint.canceled += SprintCanceled;
 			_charInput.Game.Attack.performed += MovementPerformed;
 			_charInput.Game.Jump.performed += MovementPerformed;
+			_charInput.Game.Defense.performed += DefensePerformed;
+			_charInput.Game.Defense.canceled += DefenseCanceled;
 			_charInput.Game.ToggleTargetLock.performed += ToggleTargetLockPerformed;
 
 			_charInput.Enable ();
@@ -79,5 +81,17 @@ namespace Kaigo.Runtime.Character.Input
 			else
 				InvokeDeactivateTargetLockAction ();
 		}
+
+		private void DefensePerformed(CallbackContext context)
+        {
+			isDefense = true;
+        }
+
+		private void DefenseCanceled(CallbackContext context)
+        {
+			isDefense = false;
+        }
+
+		
 	}
 }

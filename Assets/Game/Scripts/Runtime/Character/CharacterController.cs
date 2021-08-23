@@ -8,6 +8,7 @@ using UnityEngine;
 using Z.CharacterLocomotion.Runtime;
 using Z.SmoothUpdate.Runtime;
 using Z.TargetLock.Runtime;
+using Z.CharacterDefense.Runtime;
 using Z.UnityHelper.TransformUtil;
 
 namespace Kaigo.Runtime.Character
@@ -20,6 +21,7 @@ namespace Kaigo.Runtime.Character
 	[RequireComponent (typeof (UCharacterController), typeof (SmoothUpdateHandler))]
 	[RequireComponent (typeof (CharacterStat), typeof (CharacterSetting))]
 	[RequireComponent (typeof (LocomotionHandler), typeof (AnimationHandler), typeof (TargetLockHandler))]
+	[RequireComponent (typeof(DefenseHandler))]
 	internal partial class CharacterController : MonoBehaviour, ITransform, ILocoFocusedObject, ICTPFocusedObject, ITargetable
 	{
 		[Header ("References")]
@@ -42,6 +44,8 @@ namespace Kaigo.Runtime.Character
 		private AnimationHandler _animHandler = null;
 		[SerializeField]
 		private TargetLockHandler _lockHandler = null;
+		[SerializeField]
+		private DefenseHandler __defHandler = null;
 		[SerializeField]
 		private AnimationEventHandler _animEventHandler = null;
 		[SerializeField]
@@ -110,16 +114,19 @@ namespace Kaigo.Runtime.Character
 			{
 				CamTransform = _camTransform,
 				InputAxis = _inputHandler,
+				defenseInput = _inputHandler,
 				FocusedObject = this,
 				LocoSetting = _charSetting,
 				Stat = _stat,
 				UCharController = _ucharController
 			});
-			_animHandler.Init (_anim, _locoHandler, _stat, _charSetting);
+			__defHandler.Init(_inputHandler);
+			_animHandler.Init (_anim, _locoHandler, _stat, _inputHandler, _charSetting);
 			_animEventHandler.Init (_anim);
 
 			_inputHandler.OnActivateTargetLockTriggerd += _lockHandler.ActivateTargetLock;
 			_inputHandler.OnDeactivateTargetLockTriggerd += _lockHandler.DeactivateTargetLock;
+					
 
 			_isInitialized = true;
 		}
@@ -146,6 +153,7 @@ namespace Kaigo.Runtime.Character
 
 			_inputHandler.HandleUpdate ();
 			_animHandler.HandleUpdate ();
+			__defHandler.HandleUpdate();
 		}
 
 		private Bounds GetBounds ()

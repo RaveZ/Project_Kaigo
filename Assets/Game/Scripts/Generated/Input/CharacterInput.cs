@@ -59,6 +59,14 @@ namespace Kaigo.Generated.Input
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Defense"",
+                    ""type"": ""Button"",
+                    ""id"": ""a8072163-8413-4c0e-b857-5e50614365cb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -215,6 +223,17 @@ namespace Kaigo.Generated.Input
                     ""action"": ""ToggleTargetLock"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8c352264-5a28-4c59-b827-70a8e1cd3b89"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Defense"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -255,6 +274,7 @@ namespace Kaigo.Generated.Input
             m_Game_Attack = m_Game.FindAction("Attack", throwIfNotFound: true);
             m_Game_Sprint = m_Game.FindAction("Sprint", throwIfNotFound: true);
             m_Game_ToggleTargetLock = m_Game.FindAction("ToggleTargetLock", throwIfNotFound: true);
+            m_Game_Defense = m_Game.FindAction("Defense", throwIfNotFound: true);
             // MainMenu
             m_MainMenu = asset.FindActionMap("MainMenu", throwIfNotFound: true);
             m_MainMenu_Newaction = m_MainMenu.FindAction("New action", throwIfNotFound: true);
@@ -312,6 +332,7 @@ namespace Kaigo.Generated.Input
         private readonly InputAction m_Game_Attack;
         private readonly InputAction m_Game_Sprint;
         private readonly InputAction m_Game_ToggleTargetLock;
+        private readonly InputAction m_Game_Defense;
         public struct GameActions
         {
             private @CharacterInput m_Wrapper;
@@ -321,6 +342,7 @@ namespace Kaigo.Generated.Input
             public InputAction @Attack => m_Wrapper.m_Game_Attack;
             public InputAction @Sprint => m_Wrapper.m_Game_Sprint;
             public InputAction @ToggleTargetLock => m_Wrapper.m_Game_ToggleTargetLock;
+            public InputAction @Defense => m_Wrapper.m_Game_Defense;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -345,6 +367,9 @@ namespace Kaigo.Generated.Input
                     @ToggleTargetLock.started -= m_Wrapper.m_GameActionsCallbackInterface.OnToggleTargetLock;
                     @ToggleTargetLock.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnToggleTargetLock;
                     @ToggleTargetLock.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnToggleTargetLock;
+                    @Defense.started -= m_Wrapper.m_GameActionsCallbackInterface.OnDefense;
+                    @Defense.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnDefense;
+                    @Defense.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnDefense;
                 }
                 m_Wrapper.m_GameActionsCallbackInterface = instance;
                 if (instance != null)
@@ -364,6 +389,9 @@ namespace Kaigo.Generated.Input
                     @ToggleTargetLock.started += instance.OnToggleTargetLock;
                     @ToggleTargetLock.performed += instance.OnToggleTargetLock;
                     @ToggleTargetLock.canceled += instance.OnToggleTargetLock;
+                    @Defense.started += instance.OnDefense;
+                    @Defense.performed += instance.OnDefense;
+                    @Defense.canceled += instance.OnDefense;
                 }
             }
         }
@@ -408,6 +436,7 @@ namespace Kaigo.Generated.Input
             void OnAttack(InputAction.CallbackContext context);
             void OnSprint(InputAction.CallbackContext context);
             void OnToggleTargetLock(InputAction.CallbackContext context);
+            void OnDefense(InputAction.CallbackContext context);
         }
         public interface IMainMenuActions
         {

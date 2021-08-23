@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: AISetting
   m_EditorClassIdentifier: 
   <WaitTimeForRecalculatePath>k__BackingField: 0.1
-  <StoppingDistance>k__BackingField: 1
-  <ObserveStoppingDistance>k__BackingField: 4
+  <StoppingDistance>k__BackingField: 2
+  <ObserveStoppingDistance>k__BackingField: 3
   _eyeSetting:
     <TargetLayer>k__BackingField:
       serializedVersion: 2

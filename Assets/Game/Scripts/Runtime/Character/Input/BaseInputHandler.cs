@@ -1,9 +1,10 @@
 using UnityEngine;
 using Z.CharacterLocomotion.Runtime;
+using Z.CharacterDefense.Runtime;
 
 namespace Kaigo.Runtime.Character.Input
 {
-	internal abstract class BaseInputHandler : ScriptableObject, IInputAxis
+	internal abstract class BaseInputHandler : ScriptableObject, IInputAxis, IDefenseInput
 	{
 		internal delegate void ActivateTargetLockAction ();
 		internal delegate void DeactivateTargetLockAction ();
@@ -19,7 +20,7 @@ namespace Kaigo.Runtime.Character.Input
 
 		public bool IsInitialized { get; protected set; } = false;
 		public bool IsSprinting { get; protected set; } = false;
-		public bool CanAttack { get; protected set; } = false;
+		public bool isDefense { get; protected set; } = false;
 		public float Horizontal { get; protected set; } = 0f;
 		public float Vertical { get; protected set; } = 0f;
 
@@ -44,5 +45,6 @@ namespace Kaigo.Runtime.Character.Input
 		{
 			OnJumpTriggered.Invoke ();
 		}
+
 	}
 }
