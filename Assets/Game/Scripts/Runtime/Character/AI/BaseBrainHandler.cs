@@ -64,5 +64,10 @@ namespace Kaigo.Runtime.Character.AI
 		{
 			return OnGetPathStatusTriggered.Invoke ();
 		}
+
+		protected void Attack()
+        {
+			
+        }
 	}
 }

@@ -40,6 +40,7 @@ namespace Kaigo.Runtime.Character.Input
 			_sensEyeHandler.OnTargetDetectedTriggered += HandleTargetDetected;
 			_brainHandler.OnMoveToTriggered += HandleMoveTo;
 			_brainHandler.OnGetPathStatusTriggered += HandleGetPathStatus;
+			OnAttackTriggered += HandleAttackAction;
 
 			initialPayload.Dispose ();
 		}
@@ -79,6 +80,11 @@ namespace Kaigo.Runtime.Character.Input
 		{
 			return _navAgent.pathStatus;
 		}
+
+		private void HandleAttackAction()
+        {
+			InvokeAttackAction();
+        }
 
 	}
 }
